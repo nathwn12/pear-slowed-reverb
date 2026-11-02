@@ -8,7 +8,7 @@
   "main": "./dist/main/index.js",
   "type": "module",
   "license": "MIT",
-  "repository": "nathwn12/pear-desktop",
+  "repository": "nathwn12/pear-slowed-reverb",
   "author": {
     "name": "th-ch",
     "email": "th-ch@users.noreply.github.com",

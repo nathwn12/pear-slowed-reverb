@@ -2,7 +2,7 @@
 >
 > Why this copy exists: a nathwn12-maintained Windows build with its own update channel and installer identity.
 >
-> What it changes: Windows-only support — this fork ships and builds for Windows only; updater/installer/Discord links repointed at `nathwn12/pear-desktop`; carries player plugins (Slowed Reverb, Section Repeat) ahead of upstream.
+> What it changes: Windows-only support — this fork ships and builds for Windows only; updater/installer/Discord links repointed at `nathwn12/pear-slowed-reverb`; carries player plugins (Slowed Reverb, Section Repeat) ahead of upstream.
 >
 > Upstream's README below is adapted where platform support differs; all upstream credit remains with `pear-devs`.
 
@@ -83,7 +83,7 @@ You can help with translation on [Hosted Weblate](https://bit.ly/48n5YF7).
 
 This fork supports Windows only. macOS and Linux are not supported: no fork builds, packages, or casks exist for them.
 
-Windows builds ship from the [latest release](https://github.com/nathwn12/pear-desktop/releases/latest).
+Windows builds ship from the [latest release](https://github.com/nathwn12/pear-slowed-reverb/releases/latest).
 
 ### Windows
 
@@ -108,7 +108,7 @@ winget install pear-devs.pear-desktop
 
 #### How to install without a network connection? (in Windows)
 
-- Download the `*.nsis.7z` file for _your device architecture_ in [release page](https://github.com/nathwn12/pear-desktop/releases/latest).
+- Download the `*.nsis.7z` file for _your device architecture_ in [release page](https://github.com/nathwn12/pear-slowed-reverb/releases/latest).
   - `x64` for 64-bit Windows
   - `ia32` for 32-bit Windows
   - `arm64` for ARM64 Windows

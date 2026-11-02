@@ -203,7 +203,7 @@ jobs:
     name: Rehearsal (dry run, no publish)
     if: >-
       github.event_name == 'workflow_dispatch' &&
-      github.repository == 'nathwn12/pear-desktop' &&
+      github.repository == 'nathwn12/pear-slowed-reverb' &&
       github.ref_type == 'branch' &&
       github.ref_name == 'feat/pear-main' &&
       inputs.dry_run == true
@@ -234,7 +234,7 @@ jobs:
           if ($env:GITHUB_REF_NAME -ne 'feat/pear-main') {
             throw "Refusing to run: branch is '$env:GITHUB_REF_NAME', not the authorized feat/pear-main."
           }
-          if ($env:GITHUB_REPOSITORY -ne 'nathwn12/pear-desktop') {
+          if ($env:GITHUB_REPOSITORY -ne 'nathwn12/pear-slowed-reverb') {
             throw "Refusing to run on repository '$env:GITHUB_REPOSITORY'."
           }
           if ($env:DRY_RUN -ne 'true') {
@@ -253,8 +253,8 @@ jobs:
           $distScript = [string]$pkg.scripts.'dist:win'
           $releaseScript = [string]$pkg.scripts.'release:win'
 
-          if ($repository -ne 'nathwn12/pear-desktop') {
-            throw "package.json repository is '$repository', not the fork nathwn12/pear-desktop."
+          if ($repository -ne 'nathwn12/pear-slowed-reverb') {
+            throw "package.json repository is '$repository', not the fork nathwn12/pear-slowed-reverb."
           }
           if ($version -ne $env:EXPECTED_VERSION) {
             throw "package.json version '$version' does not match expected '$env:EXPECTED_VERSION'."
@@ -618,7 +618,7 @@ jobs:
 
           Write-Host "Verified $($artifacts.Count) produced files; manifest: $manifestPath"
           Write-Host "Installer: $($installer.Name) ($($installer.Length) bytes) sha256=$installerSha256 sha512=$installerSha512"
-          Write-Host "Updater packages verified: $($verifiedPackages.Count); app-update.yml files: $($appUpdateFiles.Count), all nathwn12/pear-desktop."
+          Write-Host "Updater packages verified: $($verifiedPackages.Count); app-update.yml files: $($appUpdateFiles.Count), all nathwn12/pear-slowed-reverb."
 
       - name: Upload rehearsal artifact
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
