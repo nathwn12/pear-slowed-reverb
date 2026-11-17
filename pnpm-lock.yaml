@@ -88,8 +88,8 @@ importers:
         specifier: 0.5.0
         version: 0.5.0
       bgutils-js:
-        specifier: 3.2.0
-        version: 3.2.0
+        specifier: 4.0.3
+        version: 4.0.3
       butterchurn:
         specifier: 3.0.0-beta.5
         version: 3.0.0-beta.5
@@ -1767,8 +1767,8 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  bgutils-js@3.2.0:
-    resolution: {integrity: sha512-CacO15JvxbclbLeCAAm9DETGlLuisRGWpPigoRvNsccSCPEC4pwYwA2g2x/pv7Om/sk79d4ib35V5HHmxPBpDg==}
+  bgutils-js@4.0.3:
+    resolution: {integrity: sha512-nvhrzqRYqFcC3AJbf1fENc/jzyMk95wH9UC9ruQzTZCq+itYWuHi2a9leK/bC1lLfi+R4a28wJZxpD5KiTFf+w==}
 
   birpc@4.0.0:
     resolution: {integrity: sha512-LShSxJP0KTmd101b6DRyGBj57LZxSDYWKitQNW/mi8GRMvZb078Uf9+pveax1DrVL89vm7mWe+TovdI/UDOuPw==}
@@ -5434,7 +5434,7 @@ snapshots:
 
   baseline-browser-mapping@2.10.40: {}
 
-  bgutils-js@3.2.0: {}
+  bgutils-js@4.0.3: {}
 
   birpc@4.0.0: {}
 
