@@ -150,7 +150,7 @@ jobs:
 
       - name: Fetch draft release
         if: ${{ env.VERSION_HASH == '' }}
-        uses: cardinalby/git-get-release-action@cedef2faf69cb7c55b285bad07688d04430b7ada
+        uses: cardinalby/git-get-release-action@2ab178299eecb253f820dcf2cce11f62be1178f7
         id: get_draft_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -184,7 +184,7 @@ jobs:
 
       - name: Commit changelog
         if: ${{ env.VERSION_HASH == '' }}
-        uses: stefanzweifel/git-auto-commit-action@04702edda442b2e678b25b537cec683a1493fcb9
+        uses: stefanzweifel/git-auto-commit-action@d0b01107b5db882071f96de5dd4b54961ea93f4c
         with:
           commit_message: Update changelog for ${{ env.VERSION_TAG }}
           file_pattern: "changelog.md"
@@ -621,7 +621,7 @@ jobs:
           Write-Host "Updater packages verified: $($verifiedPackages.Count); app-update.yml files: $($appUpdateFiles.Count), all nathwn12/pear-desktop."
 
       - name: Upload rehearsal artifact
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: pear-rehearsal-windows-${{ github.run_id }}-${{ github.run_attempt }}
           path: |

@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Check user permission
         id: check
-        uses: actions-cool/check-user-permission@7b90a27f92f3961b368376107661682c441f6103
+        uses: actions-cool/check-user-permission@c21884f3dda18dafc2f8b402fe807ccc9ec1aa5e
         with:
           require: write
           username: ${{ github.event.pull_request.user.login }}
@@ -91,7 +91,7 @@ jobs:
           pnpm dist:win
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: build-artifacts-${{ matrix.os }}
           path: pack/
