@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "repo": "pear-slowed-reverb",
+  "skill": ".opencode/skills/pear-slowed-reverb-seed/SKILL.md",
+  "manifests": {
+    "package.json": "9e73114bc98b0421cdafa621b8f262ae9b519b549fd70b35d78145310ba21750"
+  }
+}
