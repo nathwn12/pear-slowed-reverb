@@ -98,8 +98,7 @@ export class VolumeFader {
       };
 
       this.logger?.('Using linear fading.');
-    }
-    else {
+    } else {
       let dynamicRange: number;
 
       if (
@@ -107,15 +106,13 @@ export class VolumeFader {
         options.fadeScaling === 'logarithmic'
       ) {
         dynamicRange = 3;
-      }
-      else if (
+      } else if (
         typeof options.fadeScaling === 'number' &&
         !Number.isNaN(options.fadeScaling) &&
         options.fadeScaling > 0
       ) {
         dynamicRange = options.fadeScaling / 2 / 10;
-      }
-      else {
+      } else {
         throw new TypeError(
           "Expected 'linear', 'logarithmic' or a positive number as fade scaling preference!",
         );
@@ -253,7 +250,8 @@ export class VolumeFader {
           (this.fade.time.end - this.fade.time.start);
 
         const level =
-          (progress * (this.fade.volume.end - this.fade.volume.start)) + this.fade.volume.start;
+          progress * (this.fade.volume.end - this.fade.volume.start) +
+          this.fade.volume.start;
 
         this.media.volume = this.scale.internalToVolume(level);
 
@@ -303,7 +301,7 @@ export class VolumeFader {
 
     input = Math.log10(input);
 
-    return Math.max(1 + (input / dynamicRange), 0);
+    return Math.max(1 + input / dynamicRange, 0);
   }
 }
 

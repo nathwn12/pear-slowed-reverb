@@ -69,8 +69,7 @@ export class DiscordService {
     if (this.rpc) {
       try {
         this.rpc.destroy();
-      } catch {
-      }
+      } catch {}
       this.rpc.removeAllListeners();
     }
 
@@ -127,10 +126,10 @@ export class DiscordService {
       songInfo.songDuration > 0 &&
       typeof songInfo.elapsedSeconds === 'number'
     ) {
-      const songStartTime = Date.now() - (songInfo.elapsedSeconds * 1000);
+      const songStartTime = Date.now() - songInfo.elapsedSeconds * 1000;
       activityInfo.startTimestamp = Math.floor(songStartTime / 1000);
       activityInfo.endTimestamp = Math.floor(
-        (songStartTime + (songInfo.songDuration * 1000)) / 1000,
+        (songStartTime + songInfo.songDuration * 1000) / 1000,
       );
     }
 
@@ -254,8 +253,7 @@ export class DiscordService {
     try {
       this.rpc.removeAllListeners();
       this.rpc.destroy();
-    } catch {
-    }
+    } catch {}
     this.resetInfo(); // Reset internal state
   }
 

@@ -19,7 +19,11 @@ function overrideAddEventListener() {
     useCapture = false,
   ) {
     if (!(ignored.id.includes(this.id) && ignored.types.includes(type))) {
-      (this as CustomElementPrototype)._addEventListener!(type, listener, useCapture);
+      (this as CustomElementPrototype)._addEventListener!(
+        type,
+        listener,
+        useCapture,
+      );
     } else if (window.electronIs.dev()) {
       console.log(`Ignoring event: "${this.id}.${type}()"`);
     }
@@ -34,7 +38,8 @@ export const overrideListener = () => {
       Element.prototype.addEventListener = (
         Element.prototype as CustomElementPrototype
       )._addEventListener!;
-      (Element.prototype as CustomElementPrototype)._addEventListener = undefined;
+      (Element.prototype as CustomElementPrototype)._addEventListener =
+        undefined;
     },
     { once: true },
   );

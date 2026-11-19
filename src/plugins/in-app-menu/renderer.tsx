@@ -47,8 +47,7 @@ export const onRendererLoad = async ({
   );
 };
 
-export const onPlayerApiReady = () => {
-};
+export const onPlayerApiReady = () => {};
 
 export const onConfigChange = (newConfig: InAppMenuConfig) => {
   setConfig(newConfig);

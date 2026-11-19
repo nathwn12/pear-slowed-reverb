@@ -49,7 +49,6 @@ export class MusixMatch implements LyricProvider {
   }
 }
 
-
 const zBoolean = z.union([z.literal(0), z.literal(1)]);
 const Track = z.object({
   track_id: z.number(),
@@ -267,7 +266,7 @@ class MusixMatchAPI {
 
     localStorage.setItem(
       this.key,
-      JSON.stringify({ token: this.token, expires: Date.now() + (60 * 1000) }),
+      JSON.stringify({ token: this.token, expires: Date.now() + 60 * 1000 }),
     );
   }
 
