@@ -1,1 +1,0 @@
-2026-09-05 documenter: no docs updates — global-only change (opencode.jsonc top-level "shell": "C:\\Program Files\\PowerShell\\7\\pwsh.exe"); README.md (Pear Desktop app docs) and changelog.md (project release notes) contain no shell/opencode references, out of task-01 scope.
