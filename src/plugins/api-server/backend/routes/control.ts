@@ -745,7 +745,6 @@ export const register = (
   app.openapi(routes.oldSongInfo, songInfo);
   app.openapi(routes.songInfo, songInfo);
 
-  // Queue
   const queueInfo = async (ctx: Context) => {
     const queueResponsePromise = new Promise<QueueResponse>((resolve) => {
       ipcMain.once('peard:get-queue-response', (_, queue: QueueResponse) => {
@@ -784,7 +783,6 @@ export const register = (
       return ctx.body(null);
     }
 
-    // Find the currently selected song
     const currentIndex = queue.items.findIndex((item) => {
       const renderer =
         item.playlistPanelVideoRenderer ||
@@ -793,10 +791,8 @@ export const register = (
       return renderer?.selected === true;
     });
 
-    // Get the next song (currentIndex + 1)
     const nextIndex = currentIndex + 1;
     if (nextIndex >= queue.items.length) {
-      // No next song available
       ctx.status(204);
       return ctx.body(null);
     }
@@ -812,7 +808,6 @@ export const register = (
       return ctx.body(null);
     }
 
-    // Extract relevant information similar to SongInfo format
     const nextSongInfo = {
       title: nextRenderer.title?.runs?.[0]?.text,
       videoId: nextRenderer.videoId,

@@ -34,7 +34,6 @@ export const onMenu = async ({
         label: t('plugins.shortcuts.prompt.keybind.label'),
         type: 'keybind',
         keybindOptions: [
-          // If default=undefined then no default is used
           kb(
             t('plugins.shortcuts.prompt.keybind.keybind-options.previous'),
             'previous',
@@ -67,7 +66,6 @@ export const onMenu = async ({
 
       setConfig(config);
     }
-    // Else -> pressed cancel
   }
 
   return [

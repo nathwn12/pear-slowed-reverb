@@ -33,8 +33,6 @@ export const setMenuOption = (key: string, value: unknown) => {
   }
 };
 
-// MAGIC OF TYPESCRIPT
-
 type Prev = [
   never,
   0,

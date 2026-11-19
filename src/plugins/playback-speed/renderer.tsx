@@ -63,7 +63,6 @@ export const onPlayerApiReady = () => {
               setSpeed(1);
             }
 
-            // E.deltaY < 0 means wheel-up
             setSpeed((prev) =>
               roundToTwo(
                 e.deltaY < 0

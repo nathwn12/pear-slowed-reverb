@@ -54,13 +54,11 @@ import { isTesting } from '@/utils/testing';
 
 import type { PluginConfig } from '@/types/plugins';
 
-// Catch errors and log them
 unhandled({
   logger: console.error,
   showDialog: false,
 });
 
-// Prevent window being garbage collected
 let mainWindow: Electron.BrowserWindow | null;
 electronUpdater.autoUpdater.autoDownload = false;
 
@@ -97,27 +95,19 @@ protocol.registerSchemesAsPrivileged([
   { scheme: 'mailto', privileges: { standard: true } },
 ]);
 
-// Ozone platform hint: Required for Wayland support
 app.commandLine.appendSwitch('ozone-platform-hint', 'auto');
 
-// SharedArrayBuffer: Required for downloader (@ffmpeg/core-mt)
-// OverlayScrollbar: Required for overlay scrollbars
-// UseOzonePlatform: Required for Wayland support
-// WaylandWindowDecorations: Required for Wayland decorations
 app.commandLine.appendSwitch(
   'enable-features',
   'OverlayScrollbar,SharedArrayBuffer,UseOzonePlatform,WaylandWindowDecorations',
 );
 
-// Disable Fluent Scrollbar (for OverlayScrollbar)
 const disabledFeatures = ['FluentScrollbar'];
 let disableHardwareAcceleration = config.get(
   'options.disableHardwareAcceleration',
 );
 
-// Linux specific fixes
 if (is.linux()) {
-  // Stops chromium from launching its own MPRIS service
   if (await config.plugins.isEnabled('shortcuts')) {
     disabledFeatures.push('MediaSessionService');
   }
@@ -129,11 +119,9 @@ if (is.linux()) {
     app.commandLine.appendSwitch('enable-unsafe-swiftshader');
   }
 
-  // Overrides WM_CLASS for X11 to correspond to icon filename
   app.setName(
     'com.github.th-ch.\u0079\u006f\u0075\u0074\u0075\u0062\u0065\u002d\u006d\u0075\u0073\u0069\u0063',
   );
-  // for wayland
   app.commandLine.appendSwitch(
     'class',
     'com.github.th-ch.\u0079\u006f\u0075\u0074\u0075\u0062\u0065\u002d\u006d\u0075\u0073\u0069\u0063',
@@ -145,7 +133,6 @@ if (disableHardwareAcceleration) {
   app.disableHardwareAcceleration();
 }
 
-// Apply disabled features
 app.commandLine.appendSwitch('disable-features', disabledFeatures.join(','));
 
 if (config.get('options.proxy')) {
@@ -153,7 +140,6 @@ if (config.get('options.proxy')) {
 
   let proxyToUse = '';
   if (authProxyEnabled) {
-    // Use proxy from Auth-Proxy-Adapter plugin
     const authProxyConfig = deepmerge(
       defaultAuthProxyConfig,
       config.get('plugins.auth-proxy-adapter') ?? {},
@@ -162,14 +148,12 @@ if (config.get('options.proxy')) {
     const { hostname, port } = authProxyConfig;
     proxyToUse = `socks5://${hostname}:${port}`;
   } else if (config.get('options.proxy')) {
-    // Use global proxy settings
     proxyToUse = config.get('options.proxy');
   }
   console.log(LoggerPrefix, `Using proxy: ${proxyToUse}`);
   app.commandLine.appendSwitch('proxy-server', proxyToUse);
 }
 
-// Adds debug features like hotkeys for triggering dev tools and reload
 electronDebug({
   showDevTools: false, // Disable automatic devTools on new window
 });
@@ -182,8 +166,6 @@ if (process.platform === 'win32') {
 }
 
 function onClosed() {
-  // Dereference the window
-  // For multiple Windows store them in an array
   mainWindow = null;
 }
 
@@ -292,7 +274,6 @@ const showNeedToRestartDialog = async (id: string) => {
         break;
       }
 
-      // Ignore
       default: {
         break;
       }
@@ -302,7 +283,6 @@ const showNeedToRestartDialog = async (id: string) => {
 
 function initTheme(win: BrowserWindow) {
   injectCSS(win.webContents, musicPlayerCss);
-  // Load user CSS
   const themes: string[] = config.get('options.themes');
   if (Array.isArray(themes)) {
     for (const cssFile of themes) {
@@ -352,7 +332,6 @@ async function createMainWindow() {
     autoHideMenuBar: config.get('options.hideMenu'),
   };
 
-  // Note: on linux, for some weird reason, having these extra properties with 'frame: false' does not work
   if (is.linux() && useInlineMenu) {
     delete decorations.titleBarOverlay;
     delete decorations.titleBarStyle;
@@ -372,8 +351,6 @@ async function createMainWindow() {
       ...(isTesting()
         ? undefined
         : {
-            // Sandbox is only enabled in tests for now
-            // See https://www.electronjs.org/docs/latest/tutorial/sandbox#preload-scripts
             sandbox: false,
           }),
     },
@@ -408,7 +385,6 @@ async function createMainWindow() {
       scaledY < display.bounds.y - 8 || // Top
       scaledY + (scaledHeight / 2) > display.bounds.y + display.bounds.height // Bottom
     ) {
-      // Window is offscreen
       if (is.dev()) {
         console.warn(
           LoggerPrefix,
@@ -511,7 +487,6 @@ async function createMainWindow() {
   win.webContents.on('will-redirect', (event) => {
     const url = URL.parse(event.url);
 
-    // Workarounds for regions where YTM is restricted
     if (
       url &&
       url.hostname.endsWith('\u0079\u006f\u0075\u0074\u0075\u0062\u0065.com') &&
@@ -532,7 +507,6 @@ async function createMainWindow() {
 
 app.once('browser-window-created', (_event, win) => {
   if (config.get('options.overrideUserAgent')) {
-    // User agents are from https://developers.whatismybrowser.com/useragents/explore/
     const originalUserAgent = win.webContents.userAgent;
     const userAgents = {
       mac: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.152 Safari/537.36',
@@ -552,7 +526,6 @@ app.once('browser-window-created', (_event, win) => {
     app.userAgentFallback = updatedUserAgent;
 
     win.webContents.session.webRequest.onBeforeSendHeaders((details, cb) => {
-      // This will only happen if login failed, and "retry" was pressed
       if (
         win.webContents.getURL().startsWith('https://accounts.google.com') &&
         details.url.startsWith('https://accounts.google.com')
@@ -600,7 +573,6 @@ app.once('browser-window-created', (_event, win) => {
         // Workaround for #2435
         !URL.parse(validatedURL)?.hostname?.includes('doubleclick.net')
       ) {
-        // -3 is a false positive
         win.webContents.send('log', log);
         win.webContents.loadFile(ErrorHtmlAsset);
       }
@@ -626,13 +598,10 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 
-  // Unregister all shortcuts.
   globalShortcut.unregisterAll();
 });
 
 app.on('activate', async () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
     mainWindow = await createMainWindow();
   } else if (!mainWindow.isVisible()) {
@@ -657,7 +626,6 @@ app.whenReady().then(async () => {
   });
 
   if (config.get('options.autoResetAppCache')) {
-    // Clear cache after 20s
     const clearCacheTimeout = setTimeout(() => {
       if (is.dev()) {
         console.log(
@@ -671,14 +639,12 @@ app.whenReady().then(async () => {
     }, 20_000);
   }
 
-  // Register appID on windows
   if (is.windows()) {
     const appID =
       'com.github.th-ch.\u0079\u006f\u0075\u0074\u0075\u0062\u0065\u002d\u006d\u0075\u0073\u0069\u0063';
     app.setAppUserModelId(appID);
     const appLocation = process.execPath;
     const appData = app.getPath('appData');
-    // Check shortcut validity if not in dev mode / running portable app
     if (
       !is.dev() &&
       !appLocation.startsWith(path.join(appData, '..', 'Local', 'Temp'))
@@ -692,7 +658,6 @@ app.whenReady().then(async () => {
         `${APPLICATION_NAME}.lnk`,
       );
       try {
-        // Check if shortcut is registered and valid
         const shortcutDetails = shell.readShortcutLink(shortcutPath); // Throw error if it doesn't exist yet
         if (
           shortcutDetails.target !== appLocation ||
@@ -702,7 +667,6 @@ app.whenReady().then(async () => {
           throw 'needUpdate';
         }
       } catch (error) {
-        // If not valid -> Register shortcut
         shell.writeShortcutLink(
           shortcutPath,
           error === 'needUpdate' ? 'update' : 'create',
@@ -718,10 +682,7 @@ app.whenReady().then(async () => {
   }
 
   ipcMain.on('get-renderer-script', (event) => {
-    // Inject index.html file as string using insertAdjacentHTML
-    // In dev mode, get string from process.env.VITE_DEV_SERVER_URL, else use fs.readFileSync
     if (is.dev() && process.env.ELECTRON_RENDERER_URL) {
-      // HACK: to make vite work with electron renderer (supports hot reload)
       event.returnValue = [
         null,
         `
@@ -806,7 +767,6 @@ app.whenReady().then(async () => {
     mainWindow.focus();
   });
 
-  // Autostart at login
   app.setLoginItemSettings({
     openAtLogin: config.get('options.startAtLogin'),
   });
@@ -842,13 +802,11 @@ app.whenReady().then(async () => {
 
       dialogPromise.then((dialogOutput) => {
         switch (dialogOutput.response) {
-          // Download
           case 1: {
             shell.openExternal(downloadLink);
             break;
           }
 
-          // Disable updates
           case 2: {
             config.set('options.autoUpdates', false);
             break;
@@ -871,7 +829,6 @@ app.whenReady().then(async () => {
     config.set('options.hideMenuWarned', true);
   }
 
-  // Optimized for Mac OS X
   if (is.macOS() && !config.get('options.appVisible')) {
     app.dock?.hide();
   }
@@ -883,7 +840,6 @@ app.whenReady().then(async () => {
 
   if (is.macOS() || config.get('options.tray')) {
     mainWindow.on('close', (event) => {
-      // Hide the window instead of quitting (quit is available in tray options)
       if (!forceQuit) {
         event.preventDefault();
         mainWindow!.hide();
@@ -936,18 +892,13 @@ function showUnresponsiveDialog(
 function removeContentSecurityPolicy(
   betterSession: BetterSession = session.defaultSession as BetterSession,
 ) {
-  // Allows defining multiple "onHeadersReceived" listeners
-  // by enhancing the session.
-  // Some plugins (e.g. adblocker) also define a "onHeadersReceived" listener
   enhanceWebRequest(betterSession);
 
-  // Custom listener to tweak the content security policy
   betterSession.webRequest.onHeadersReceived((details, callback) => {
     details.responseHeaders ??= {};
 
     // prettier-ignore
     if (URL.parse(details.url)?.protocol === 'https:') {
-      // Remove the content security policy
       delete details.responseHeaders['content-security-policy-report-only'];
       delete details.responseHeaders['Content-Security-Policy-Report-Only'];
       delete details.responseHeaders['content-security-policy'];
@@ -964,7 +915,6 @@ function removeContentSecurityPolicy(
     callback({ cancel: false, responseHeaders: details.responseHeaders });
   });
 
-  // When multiple listeners are defined, apply them all
   betterSession.webRequest.setResolver(
     'onHeadersReceived',
     async (listeners) => {

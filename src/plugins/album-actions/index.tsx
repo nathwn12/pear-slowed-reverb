@@ -37,7 +37,6 @@ export default createPlugin<
   renderer: {
     waiting: false,
     start() {
-      // Waits for pagechange
       this.onPageChange();
       this.observer = new MutationObserver(() => {
         this.onPageChange();
@@ -107,7 +106,6 @@ export default createPlugin<
         buttonContainer,
       );
 
-      //Finds the playlist
       const playlist =
         document.querySelector('ytmusic-playlist-shelf-renderer') ??
         document.querySelector(':nth-last-child(1 of ytmusic-shelf-renderer)');
@@ -116,7 +114,6 @@ export default createPlugin<
         return;
       }
 
-      // Adds an observer for every button, so it gets updated when one is clicked
       this.changeObserver?.disconnect();
 
       this.changeObserver = new MutationObserver(() => {

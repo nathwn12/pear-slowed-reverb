@@ -51,7 +51,6 @@ export const setupTimeChangedListener = singleton(() => {
 
 export const setupRepeatChangedListener = singleton(() => {
   const repeatObserver = new MutationObserver((mutations) => {
-    // provided by App
     window.ipcRenderer.send(
       'peard:repeat-changed',
       (
@@ -67,8 +66,6 @@ export const setupRepeatChangedListener = singleton(() => {
     attributeFilter: ['title'],
   });
 
-  // Emit the initial value as well; as it's persistent between launches.
-  // provided by App
   window.ipcRenderer.send(
     'peard:repeat-changed',
     document
@@ -106,7 +103,6 @@ export const setupLikeChangedListener = singleton(() => {
       attributeFilter: [LIKE_STATUS_ATTRIBUTE],
     });
 
-    // Emit the initial value as well; as it's persistent between launches.
     window.ipcRenderer.send(
       'peard:like-changed',
       mapLikeStatus(likeButtonRenderer.getAttribute?.(LIKE_STATUS_ATTRIBUTE)),
@@ -122,7 +118,6 @@ export const setupVolumeChangedListener = singleton((api: MusicPlayer) => {
     });
   });
 
-  // Emit the initial value as well; as it's persistent between launches.
   window.ipcRenderer.send('peard:volume-changed', {
     state: api.getVolume(),
     isMuted: api.isMuted(),
@@ -265,8 +260,6 @@ export const setupSongInfo = (api: MusicPlayer) => {
     }
   };
 
-  // Name = "dataloaded" and abit later "dataupdated"
-  // Sometimes "dataupdated" is not fired, so we need to fallback to "dataloaded"
   api.addEventListener('videodatachange', (name, videoData) => {
     videoEventDispatcher(name, videoData);
 
@@ -279,7 +272,6 @@ export const setupSongInfo = (api: MusicPlayer) => {
       video?.dispatchEvent(srcChangedEvent);
 
       for (const status of ['playing', 'pause'] as const) {
-        // for fix issue that pause event not fired
         video?.addEventListener(status, playPausedHandlers[status]);
       }
 

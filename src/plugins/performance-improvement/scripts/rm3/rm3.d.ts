@@ -30,7 +30,6 @@ declare class Rm3LinkedArray<T> {
   static Node: typeof Rm3LinkedArrayNode;
 }
 
-// Define the structure of the internal LimitedSizeSet class
 declare class Rm3LimitedSizeSet<T> extends Set<T> {
   limit: number;
   constructor(n: number);
@@ -38,8 +37,6 @@ declare class Rm3LimitedSizeSet<T> extends Set<T> {
   removeAdd(key: T): void;
 }
 
-// Define the structure of the entryRecord tuple used internally
-// [ WeakRef<HTMLElement>, attached time, detached time, time of change, inside availablePool, reuse count ]
 type Rm3EntryRecord = [
   WeakRef<HTMLElement>,
   number,
@@ -49,7 +46,6 @@ type Rm3EntryRecord = [
   number,
 ];
 
-// Define the interface for the exported rm3 object
 export interface Rm3 {
   /**
    * Removes duplicate values from an array.

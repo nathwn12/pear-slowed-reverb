@@ -257,13 +257,11 @@ export default createPlugin<
           transitionAudio.play();
           transitionAudio.seek(video.currentTime);
 
-          // Fade in
           const videoVolume = video.volume;
           video.volume = 0;
           videoFader.fadeTo(videoVolume);
         });
 
-        // Exit just before the end for the transition
         const transitionBeforeEnd = () => {
           if (
             video.currentTime >=
@@ -272,7 +270,6 @@ export default createPlugin<
           ) {
             video.removeEventListener('timeupdate', transitionBeforeEnd);
 
-            // Go to next video - XXX: does not support "repeat 1" mode
             document.querySelector<HTMLButtonElement>('.next-button')?.click();
           }
         };
@@ -299,7 +296,6 @@ export default createPlugin<
           fadeDuration: this.config?.fadeOutDuration,
         });
 
-        // Fade out the music
         video.volume = 0;
         fader.fadeOut(() => {
           resolveTransition();

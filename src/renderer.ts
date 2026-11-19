@@ -48,7 +48,6 @@ async function listenForApiLoad() {
 }
 
 async function onApiLoaded() {
-  // Workaround for macOS traffic lights
   {
     let osType = 'Unknown';
     if (window.electronIs.osx()) {
@@ -342,7 +341,6 @@ async function onApiLoaded() {
   };
 
   const loadstartListener = () => {
-    // Emit "audioCanPlay" for each video
     video.addEventListener('canplaythrough', audioCanPlayEventDispatcher, {
       once: true,
     });
@@ -356,7 +354,6 @@ async function onApiLoaded() {
 
   window.ipcRenderer.send('peard:player-api-loaded');
 
-  // Navigate to "Starting page"
   const startingPage: string = window.mainConfig.get('options.startingPage');
   if (startingPage && startingPages[startingPage]) {
     document
@@ -364,7 +361,6 @@ async function onApiLoaded() {
       ?.navigate(startingPages[startingPage]);
   }
 
-  // Remove upgrade button
   if (window.mainConfig.get('options.removeUpgradeButton')) {
     const itemsSelector = 'ytmusic-guide-section-renderer #items';
     let selector = 'ytmusic-guide-entry-renderer:last-child';
@@ -384,7 +380,6 @@ async function onApiLoaded() {
     document.head.appendChild(styles);
   }
 
-  // Hide / Force show like buttons
   const likeButtonsOptions: string = window.mainConfig.get(
     'options.likeButtons',
   );
@@ -405,7 +400,6 @@ async function onApiLoaded() {
     document.head.appendChild(style);
   }
 
-  // Swap like button order
   if (window.mainConfig.get('options.swapLikeButtonsOrder')) {
     const style = document.createElement('style');
     style.textContent = `
@@ -478,13 +472,10 @@ const main = async () => {
     },
   );
 
-  // Wait for complete load of the api
   await listenForApiLoad();
 
-  // Blocks the "Are You Still There?" popup by setting the last active time to Date.now every 15min
   setInterval(() => (window._lact = Date.now()), 900_000);
 
-  // Setup back to front logger
   if (window.electronIs.dev()) {
     window.ipcRenderer.on('log', (_event, log: string) => {
       console.log(JSON.parse(log));
@@ -493,7 +484,6 @@ const main = async () => {
 };
 
 const initObserver = async () => {
-  // check document.documentElement is ready
   await new Promise<void>((resolve) => {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => resolve(), {
@@ -511,7 +501,6 @@ const initObserver = async () => {
     if (playerApi) {
       observer.disconnect();
 
-      // Inject song-info provider
       setupSongInfo(playerApi);
       const dataLoadedListener = (name: string) => {
         if (!firstDataLoaded && name === 'dataloaded') {

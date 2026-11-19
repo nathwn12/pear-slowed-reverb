@@ -78,19 +78,16 @@ export const backend = createBackend<BackendType, APIServerConfig>({
     this.oldConfig = config;
   },
 
-  // Custom
   init(backendCtx) {
     this.app = new Hono();
 
     this.app.use('*', cors());
 
-    // for web remote control
     this.app.use('*', async (ctx, next) => {
       ctx.header('Access-Control-Allow-Private-Network', 'true');
       await next();
     });
 
-    // middlewares
     const jwtGuard: MiddlewareHandler = async (ctx, next) => {
       if (ctx.req.path.endsWith(`${API_VERSION}/ws`)) {
         return await next();
@@ -126,7 +123,6 @@ export const backend = createBackend<BackendType, APIServerConfig>({
       return await next();
     });
 
-    // routes
     registerControl(
       this.app,
       backendCtx,
@@ -141,7 +137,6 @@ export const backend = createBackend<BackendType, APIServerConfig>({
     registerAuth(this.app, backendCtx);
     registerWebsocket(this.app, backendCtx, upgradeWebSocket);
 
-    // swagger
     this.app.openAPIRegistry.registerComponent(
       'securitySchemes',
       'bearerAuth',

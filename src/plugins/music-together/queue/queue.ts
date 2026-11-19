@@ -345,7 +345,6 @@ export class Queue {
                 })),
               ];
               this.broadcast({
-                // play
                 type: 'ADD_SONGS',
                 payload: {
                   videoList,
@@ -394,7 +393,6 @@ export class Queue {
               })),
             );
             this.broadcast({
-              // add playlist
               type: 'ADD_SONGS',
               payload: {
                 index:

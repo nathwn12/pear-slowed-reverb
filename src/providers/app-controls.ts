@@ -19,7 +19,6 @@ export const setupAppControls = () => {
 
 function restartInternal() {
   app.relaunch({ execPath: process.env.PORTABLE_EXECUTABLE_FILE });
-  // ExecPath will be undefined if not running portable app, resulting in default behavior
   app.quit();
 }
 

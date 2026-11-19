@@ -14,7 +14,6 @@ import { registerCallback, SongInfoEvent } from './providers/song-info';
 
 import type { MenuTemplate } from './menu';
 
-// Prevent tray being garbage collected
 let tray: Electron.Tray | undefined;
 
 type TrayEvent = (
@@ -31,7 +30,6 @@ export const setTrayOnClick = (fn: TrayEvent) => {
   tray.on('click', fn);
 };
 
-// Won't do anything on macOS since its disabled
 export const setTrayOnDoubleClick = (fn: TrayEvent) => {
   if (!tray) {
     return;
@@ -74,7 +72,6 @@ export const setUpTray = (app: Electron.App, win: Electron.BrowserWindow) => {
     }),
   );
 
-  // MacOS only
   tray.setIgnoreDoubleClickEvents(true);
 
   tray.on('click', () => {

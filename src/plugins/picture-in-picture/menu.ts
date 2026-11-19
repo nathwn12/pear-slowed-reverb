@@ -70,7 +70,6 @@ export const onMenu = async ({
 
           item.checked = !!accelerator;
         } else {
-          // Reset checkbox if prompt was canceled
           item.checked = !item.checked;
         }
       },

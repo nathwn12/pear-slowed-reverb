@@ -287,7 +287,6 @@ export const TitleBar = (props: TitleBarProps) => {
     props.ipc.on('window-maximize', refetchMaximize);
     props.ipc.on('window-unmaximize', refetchMaximize);
 
-    // close menu when the outside of the panel or sub-panel is clicked
     document.body.addEventListener('click', (e) => {
       if (
         e.target instanceof HTMLElement &&
@@ -300,7 +299,6 @@ export const TitleBar = (props: TitleBarProps) => {
       }
     });
 
-    // tracking mouse position
     window.addEventListener('mousemove', listener);
     const ytmusicAppLayout = document.querySelector<HTMLElement>('#layout');
     ytmusicAppLayout?.addEventListener('scroll', () => {

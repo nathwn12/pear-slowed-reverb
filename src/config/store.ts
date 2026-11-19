@@ -252,7 +252,6 @@ const migrations = {
       return;
     }
 
-    // Include custom options
     // oxlint-disable-next-line typescript/no-explicit-any
     const plugins: Record<string, any> = {
       adblocker: {
@@ -282,7 +281,6 @@ const migrations = {
 export const store = new Store({
   defaults: {
     ...defaults,
-    // README: 'plugin' uses deepmerge to populate the default values, so it is not necessary to include it here
   },
   clearInvalidConfig: false,
   migrations,

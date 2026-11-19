@@ -147,7 +147,6 @@ export function registerMPRIS(win: BrowserWindow) {
         }
         case 'ALL': {
           player.setLoopStatus(MprisPlayer.LOOP_STATUS_PLAYLIST);
-          // No default
           break;
         }
       }
@@ -212,7 +211,6 @@ export function registerMPRIS(win: BrowserWindow) {
       } else if (player.loopStatus === MprisPlayer.LOOP_STATUS_PLAYLIST) {
         hasNext = true;
       } else {
-        // Example: currentPosition = 0, queue.items.length = 29 -> hasNext = true
         hasNext = !!(currentPosition - (queue?.items?.length ?? 0 - 1));
       }
 
@@ -220,7 +218,6 @@ export function registerMPRIS(win: BrowserWindow) {
     });
 
     player.on('loopStatus', (status: LoopStatus) => {
-      // SwitchRepeat cycles between states in that order
       const switches = [
         MprisPlayer.LOOP_STATUS_NONE,
         MprisPlayer.LOOP_STATUS_PLAYLIST,
@@ -229,7 +226,6 @@ export function registerMPRIS(win: BrowserWindow) {
       const currentIndex = switches.indexOf(player.loopStatus);
       const targetIndex = switches.indexOf(status);
 
-      // Get a delta in the range [0,2]
       const delta = (targetIndex - currentIndex + 3) % 3;
       switchRepeat(delta);
     });
@@ -310,7 +306,6 @@ export function registerMPRIS(win: BrowserWindow) {
 
     player.on('volume', async (newVolume: number) => {
       if (await config.plugins.isEnabled('precise-volume')) {
-        // With precise volume we can set the volume to the exact value.
         win.webContents.send('setVolume', ~~(newVolume * 100));
       } else {
         setVolume(newVolume * 100);

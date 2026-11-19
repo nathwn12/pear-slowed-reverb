@@ -470,6 +470,5 @@ export interface GetPlayerResponseVideoDetails {
   elapsedSeconds: number;
   isPaused: boolean;
 
-  // music only
   album?: string | null;
 }

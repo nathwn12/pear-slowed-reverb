@@ -25,7 +25,6 @@ import packageJson from '../package.json';
 
 export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 
-// True only if in-app-menu was loaded on launch
 const inAppMenuActive = await config.plugins.isEnabled('in-app-menu');
 
 const pluginEnabledMenu = async (
@@ -580,7 +579,6 @@ export const mainMenuTemplate = async (
                   label: t(
                     'main.menu.options.submenu.advanced-options.submenu.toggle-dev-tools',
                   ),
-                  // Cannot use "toggleDevTools" role in macOS
                   click() {
                     const { webContents } = win;
                     if (webContents.isDevToolsOpened()) {
@@ -751,7 +749,6 @@ async function setProxy(item: Electron.MenuItem, win: BrowserWindow) {
     config.setMenuOption('options.proxy', output);
     item.checked = output !== '';
   } else {
-    // User pressed cancel
     item.checked = !item.checked; // Reset checkbox
   }
 }

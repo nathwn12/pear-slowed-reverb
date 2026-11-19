@@ -17,7 +17,6 @@ export const loadTrackerBlockerEngine = async (
   additionalBlockLists: string[] = [],
   disableDefaultLists: boolean | unknown[] = false,
 ) => {
-  // Only use cache if no additional blocklists are passed
   const cacheDirectory = path.join(app.getPath('userData'), 'tb_cache');
   if (!fs.existsSync(cacheDirectory)) {
     fs.mkdirSync(cacheDirectory);
@@ -53,9 +52,6 @@ export const loadTrackerBlockerEngine = async (
       lists,
       {
         enableCompression: true,
-        // When generating the engine for caching, do not load network filters
-        // So that enhancing the session works as expected
-        // Allowing to define multiple webRequest listeners
         loadNetworkFilters: session !== undefined,
       },
       cachingOptions,

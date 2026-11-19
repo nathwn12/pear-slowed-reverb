@@ -1,5 +1,3 @@
-// TODO: fully type definitions for music-player
-
 import type { GetPlayerResponse } from './get-player-response';
 import type { PlayerAPIEvents } from './player-api-events';
 import type { VideoDetails } from './video-details';

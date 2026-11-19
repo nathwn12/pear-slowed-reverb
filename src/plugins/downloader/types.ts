@@ -3,7 +3,6 @@ export interface Preset {
   ffmpegArgs: string[];
 }
 
-// Presets for FFmpeg
 export const DefaultPresetList: Record<string, Preset> = {
   'mp3 (256kbps)': {
     extension: 'mp3',
@@ -29,8 +28,6 @@ export interface VideoFormat {
   vrOr3D: string;
 }
 
-// converted from https://gist.github.com/sidneys/7095afe4da4ae58694d128b1034e01e2
-// and https://gist.github.com/MartinEesmaa/2f4b261cb90a47e9c41ba115a011a4aa
 export const VideoFormatList: VideoFormat[] = [
   {
     itag: 5,
@@ -860,7 +857,6 @@ export const VideoFormatList: VideoFormat[] = [
     range: '-',
     vrOr3D: '',
   },
-  // Audio formats
   {
     itag: 599,
     container: 'mp4',
@@ -888,7 +884,6 @@ export const VideoFormatList: VideoFormat[] = [
     range: '-',
     vrOr3D: '',
   },
-  // Livestream formats
   {
     itag: 300,
     container: 'ts',

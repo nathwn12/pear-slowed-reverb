@@ -151,9 +151,7 @@ export default createPlugin<
       if (state !== 1 && state !== 2) return;
 
       await this.connection.broadcast('SYNC_PROGRESS', {
-        // progress: this.playerApi?.getCurrentTime(),
         state: this.playerApi?.getPlayerState(),
-        // index: this.queue?.selectedIndex ?? 0,
       });
     },
 

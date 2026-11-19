@@ -56,7 +56,6 @@ export default (
       toastXml: getXml(songInfo, icon),
     });
 
-    // To fix the notification not closing
     setTimeout(() => savedNotification?.close(), 5000);
 
     savedNotification.on('close', () => {
@@ -269,7 +268,6 @@ export default (
   let savedSongInfo: SongInfo;
   let lastUrl: string | undefined;
 
-  // Register songInfoCallback
   registerCallback((songInfo, event) => {
     if (event === SongInfoEvent.TimeChanged) {
       currentSeconds = songInfo.elapsedSeconds ?? 0;

@@ -16,7 +16,6 @@ import type { BackendContext } from '@/types/contexts';
 let config: NotificationsPluginConfig;
 
 const notify = (info: SongInfo) => {
-  // Send the notification
   const currentNotification = new Notification({
     title: info.title || 'Playing',
     body: info.artist,
@@ -39,10 +38,8 @@ const setup = () => {
       !songInfo.isPaused &&
       (songInfo.url !== currentUrl || config.unpauseNotification)
     ) {
-      // Close the old notification
       oldNotification?.close();
       currentUrl = songInfo.url;
-      // This fixes a weird bug that would cause the notification to be updated instead of showing
       setTimeout(() => {
         oldNotification = notify(songInfo);
       }, 10);
@@ -55,7 +52,6 @@ export const onMainLoad = async (
 ) => {
   config = await context.getConfig();
 
-  // Register the callback for new song information
   if (is.windows() && config.interactive)
     interactive(context.window, () => config, context);
   else setup();

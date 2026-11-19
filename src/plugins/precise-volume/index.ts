@@ -52,7 +52,6 @@ export default createPlugin({
       options: PreciseVolumePluginConfig,
     ) {
       for (const option in changedOptions) {
-        // HACK: Weird TypeScript error
         (options as Record<string, unknown>)[option] = (
           changedOptions as Record<string, unknown>
         )[option];
@@ -61,7 +60,6 @@ export default createPlugin({
       setConfig(options);
     }
 
-    // Helper function for globalShortcuts prompt
     const kb = (
       label_: string,
       value_: string,
@@ -87,7 +85,6 @@ export default createPlugin({
       );
 
       if (output || output === 0) {
-        // 0 is somewhat valid
         changeOptions({ steps: output }, options);
       }
     }
@@ -138,7 +135,6 @@ export default createPlugin({
           Boolean(options.globalShortcuts.volumeUp) ||
           Boolean(options.globalShortcuts.volumeDown);
       } else {
-        // Reset checkbox if prompt was canceled
         item.checked = !item.checked;
       }
     }

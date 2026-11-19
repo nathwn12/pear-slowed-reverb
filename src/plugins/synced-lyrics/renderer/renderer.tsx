@@ -32,7 +32,6 @@ runWithOwner(reactiveOwner, () => {
     if (!config()?.enabled) return;
     const root = document.documentElement;
 
-    // Set the line effect
     switch (config()?.lineEffect) {
       case 'fancy':
         root.style.setProperty('--lyrics-font-size', '3rem');
@@ -166,10 +165,8 @@ export const LyricsRenderer = () => {
     const showPicker = isInView || isMouseOver;
 
     if (showPicker) {
-      // picker visible
       stickyRef()!.style.setProperty('--lyrics-picker-top', '0');
     } else {
-      // picker hidden
       stickyRef()!.style.setProperty('--lyrics-picker-top', `-${height}px`);
     }
   };
@@ -266,7 +263,6 @@ export const LyricsRenderer = () => {
 
     if (!scroller() || !current.data?.lines) return;
 
-    // hacky way to make the "current" line scroll to the center of the screen
     const scrollIndex = Math.min(idx + 1, maxIdx);
 
     scroller()!.scrollToIndex(scrollIndex, {

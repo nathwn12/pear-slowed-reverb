@@ -104,7 +104,6 @@ export class YTMusic implements LyricProvider {
       .padStart(2, '0')}.${remaining.toString().padStart(2, '0')}`;
   }
 
-  // RATE LIMITED (2 req per sec)
   private PROXIED_ENDPOINT = 'https://ytmbrowseproxy.zvz.be/';
 
   private fetchNext(videoId: string) {

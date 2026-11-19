@@ -37,8 +37,6 @@ export const injectRm3 = () => {
   /** @type {globalThis.PromiseConstructor} */
   const Promise = (async () => {})().constructor; // hacks Promise in WaterFox Classic and "Promise.resolve(0)" nevers resolve.
 
-  // https://qiita.com/piroor/items/02885998c9f76f45bfa0
-  // https://gist.github.com/piroor/829ecb32a52c2a42e5393bbeebe5e63f
   function uniq(array) {
     return [...new Set(array)];
   }
@@ -143,14 +141,12 @@ export const injectRm3 = () => {
         return this.length;
       }
 
-      // Get a node by index (0-based)
       getNode(index) {
         if (index < 0 || index >= this.length) return null;
 
         let current;
         let counter;
 
-        // Optimization: start from closest end
         if (index < this.length / 2) {
           current = this.head;
           counter = 0;
@@ -169,13 +165,11 @@ export const injectRm3 = () => {
         return current;
       }
 
-      // Get value by index
       get(index) {
         const node = this.getNode(index);
         return node ? node.value : undefined;
       }
 
-      // Find the first node with the given value and return both node and index
       findNode(value) {
         let current = this.head;
         let idx = 0;
@@ -199,7 +193,6 @@ export const injectRm3 = () => {
         return arr;
       }
 
-      // Insert a new value before a given node (provided you already have the node reference)
       insertBeforeNode(node, newValue) {
         if (!node) {
           this.unshift(newValue);
@@ -207,7 +200,6 @@ export const injectRm3 = () => {
         }
 
         if (node === this.head) {
-          // If the target is the head, just unshift
           this.unshift(newValue);
         } else {
           const newNode = new Node(newValue);
@@ -223,7 +215,6 @@ export const injectRm3 = () => {
         return true;
       }
 
-      // Insert a new value after a given node (provided you already have the node reference)
       insertAfterNode(node, newValue) {
         if (!node) {
           this.push(newValue);
@@ -231,7 +222,6 @@ export const injectRm3 = () => {
         }
 
         if (node === this.tail) {
-          // If the target is the tail, just push
           this.push(newValue);
         } else {
           const newNode = new Node(newValue);
@@ -247,40 +237,33 @@ export const injectRm3 = () => {
         return true;
       }
 
-      // Insert a new value before the first occurrence of an existing value (search by value)
       insertBefore(existingValue, newValue) {
         const { node } = this.findNode(existingValue);
         if (!node) return false; // Not found
         return this.insertBeforeNode(node, newValue);
       }
 
-      // Insert a new value after the first occurrence of an existing value (search by value)
       insertAfter(existingValue, newValue) {
         const { node } = this.findNode(existingValue);
         if (!node) return false; // Not found
         return this.insertAfterNode(node, newValue);
       }
 
-      // Delete a given node from the list
       deleteNode(node) {
         if (!node) return false;
 
         if (this.length === 1 && node === this.head && node === this.tail) {
-          // Only one element in the list
           this.head = null;
           this.tail = null;
         } else if (node === this.head) {
-          // Node is the head
           this.head = node.next;
           this.head.prev = null;
           node.next = null;
         } else if (node === this.tail) {
-          // Node is the tail
           this.tail = node.prev;
           this.tail.next = null;
           node.prev = null;
         } else {
-          // Node is in the middle
           const prevNode = node.prev;
           const nextNode = node.next;
           prevNode.next = nextNode;
@@ -329,7 +312,6 @@ export const injectRm3 = () => {
     typeof document.createElement === 'function' &&
     document.createElement.length === 1
   ) {
-    // sizing of Map / Set. Shall limit ?
 
     const hookTos = new Set(); // [[debug]]
     DEBUG_OPT && (rm3.hookTos = hookTos);
@@ -349,20 +331,14 @@ export const injectRm3 = () => {
 
 
     const timeCheck = () => {
-      // regularly check elements are old enough to put into the available pools
-      // note: the characterists of original components are non-volatile. So don't need to waste time to check weakRef.deref() is null or not for removing in operations.
 
       const ct = Date.now();
       if (ct - lastTimeCheck < CHECK_INTERVAL || noTimeCheck) return;
       lastTimeCheck = ct;
       noTimeCheck = true;
 
-      // 16,777,216
       if (hookTos.size > 777216) hookTos.clear(); // just debug usage, dont concern
       if (operations.size > 7777216) {
-        // extremely old elements in operations mean they have no attach/detach action. so no reuse as well. they are just trash in memory.
-        // as no checking of the weakRef.deref() being null or not, those trash could be already cleaned. However we don't concern this.
-        // (not to count whether they are actual memory trash or not)
         const half = operations.size >>> 1;
         let i = 0;
         for (const value of operations) {
@@ -431,8 +407,6 @@ export const injectRm3 = () => {
             operations.delete(entryRecord);
             operations.add(entryRecord);
             noTimeCheck = false;
-            // note: because of performance prespective, deletion for availablePools[eKey]'s linked element would not be done here.
-            // entryRecord[4] is not required to be updated here.
           }
         }
       } catch (e) {}
@@ -458,8 +432,6 @@ export const injectRm3 = () => {
             operations.delete(entryRecord);
             operations.add(entryRecord);
             noTimeCheck = false;
-            // note: because of performance prespective, deletion for availablePools[eKey]'s linked element would not be done here.
-            // entryRecord[4] is not required to be updated here.
           }
         }
       } catch (e) {}
@@ -670,7 +642,6 @@ export const injectRm3 = () => {
 
         const acceptance = true;
         if (acceptance) {
-          // [[ weak ElementNode, attached time, detached time, time of change, inside availablePool, reuse count ]]
           const entryRecord = [new WeakRef(newElement), -1, -1, -1, false, 0];
 
           newElement.__rm3Tag003__ = eKey;

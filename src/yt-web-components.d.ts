@@ -52,7 +52,6 @@ declare module 'solid-js' {
       'yt-icon-button': ComponentProps<'div'> & TpYtPaperIconButtonProps;
       'tp-yt-iron-icon': ComponentProps<'div'> & TpYtPaperIconButtonProps;
       'yt-icon': ComponentProps<'div'> & TpYtPaperIconButtonProps;
-      // input type="range" slider component
       'tp-yt-paper-slider': ComponentProps<'input'> & {
         'value'?: number | string;
         'min'?: number | string;

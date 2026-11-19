@@ -105,5 +105,4 @@ if (path) {
   webFrame.executeJavaScript(script, true, () => (blocked = false));
 }
 
-// HACK: Wait for the script to be executed
 while (blocked);
