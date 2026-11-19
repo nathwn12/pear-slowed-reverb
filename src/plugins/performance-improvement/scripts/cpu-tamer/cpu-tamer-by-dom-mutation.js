@@ -150,11 +150,6 @@ export const injectCpuTamerByDomMutation = ((__CONTEXT__) => {
 
     const { setTimeout, setInterval, clearTimeout, clearInterval } = __CONTEXT__;
 
-    /*
-    /-** @type {Function|null} *-/
-    // let afInterupter = null;
-    */
-
     const getDMHelper = () => {
       let _dm = document.getElementById('d-m');
       if (!_dm) {

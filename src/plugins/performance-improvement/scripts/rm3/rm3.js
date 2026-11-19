@@ -334,10 +334,8 @@ export const injectRm3 = () => {
     const hookTos = new Set(); // [[debug]]
     DEBUG_OPT && (rm3.hookTos = hookTos);
 
-    // const reusePool = new Map(); // xx858
     const entryRecords = new WeakMap(); // a weak link between element and record
 
-    // rm3.list = [];
 
     const operations = rm3.operations = new Set(); // to find out the "oldest elements"
 
@@ -349,8 +347,6 @@ export const injectRm3 = () => {
 
     let noTimeCheck = false;
 
-    // const defaultValues = new Map();
-    // const noValues = new Map();
 
     const timeCheck = () => {
       // regularly check elements are old enough to put into the available pools
@@ -375,25 +371,6 @@ export const injectRm3 = () => {
         }
       }
 
-      // {
-      //   // smallest to largest
-      //   // past to recent
-
-      //   const iterator = operations[Symbol.iterator]();
-      //   console.log(1831, '------------------------')
-      //   while (true) {
-      //     const iteratorResult = iterator.next(); // 順番に値を取りだす
-      //     if (iteratorResult.done) break; // 取り出し終えたなら、break
-      //     console.log(1835, iteratorResult.value[3])
-      //   }
-
-      //   console.log(1839, '------------------------')
-      // }
-
-      // Set iterator
-      // s.add(2) s.add(6) s.add(1) s.add(3)
-      // next: 2 -> 6 -> 1 -> 3
-      // op1 (oldest) -> op2 -> op3 -> op4 (latest)
       const iterator = operations[Symbol.iterator]();
 
       const targetTime = ct - CONFIRM_TIME;
@@ -423,12 +400,6 @@ export const injectRm3 = () => {
             if (!(availablePool instanceof LinkedArray)) throw new Error();
             DEBUG_OPT &&
               console.log(3885, 'add key', eKey, availablePools.size);
-            // rm3.showSize = ()=>availablePools.size
-            // setTimeout(()=>{
-            //   // window?.euu1 = availablePools
-            //   // window?.euu2 = availablePools.size
-            //   console.log(availablePools.size)
-            // }, 8000)
             let pivotNode = pivotNodes.get(availablePool);
             if (!pivotNode)
               pivotNodes.set(availablePool, pivotNode = availablePool.head); // cached the previous newest node (head) as pivotNode
@@ -496,19 +467,6 @@ export const injectRm3 = () => {
       return this.detached9512();
     };
 
-    // function cpy(x) {
-    //   if (!x) return x;
-    //   try {
-    //     if (typeof x === 'object' && typeof x.length ==='number' && typeof x.slice === 'function') {
-    //       x = x.slice(0)
-    //     } else if (typeof x === 'object' && !x.length) {
-    //       x = JSON.parse(JSON.stringify(x));
-    //     } else {
-    //       return Object.assign({}, x);
-    //     }
-    //   } catch (e) { }
-    //   return x;
-    // }
 
     async function digestMessage(message) {
       const msgUint8 = new TextEncoder().encode(message); // (utf-8 の) Uint8Array にエンコードする
@@ -548,7 +506,6 @@ export const injectRm3 = () => {
             let elm = null;
             if (entryRecord[1] < 0 && entryRecord[2] > 0 && entryRecord[4]) {
               elm = entryRecord[0].deref();
-              // elm && console.log(3882, (elm.__shady_native_textContent || elm.textContent))
               if (
                 elm &&
                 elm instanceof HTMLElement &&
@@ -561,11 +518,8 @@ export const injectRm3 = () => {
             }
 
             if (ok) {
-              // useEntryRecord = entryRecord;
               entryRecord[4] = false;
-              // console.log('nodeDeleted', 1, entryRecord[0].deref().nodeName)
               availablePool.deleteNode(node);
-              // break;
 
               if (!onPageContainer) {
                 let p = document.createElement('noscript');
@@ -578,9 +532,7 @@ export const injectRm3 = () => {
               const cnt = insp(elm);
 
               cnt.__dataInvalid = false;
-              // cnt._initializeProtoProperties(cnt.data)
 
-              // window.meaa = cnt.$.container;
               if (typeof (cnt.__data || 0) === 'object') {
                 cnt.__data = Object.assign({}, cnt.__data);
               }
@@ -598,12 +550,6 @@ export const injectRm3 = () => {
                 cnt.wasPrescan = cnt.wasVisible = !1;
               } catch (e) {}
 
-              // try{
-              //   cnt._setPendingProperty('data', Object.assign({}, cntData), !0);
-              // }catch(e){}
-              // try {
-              //   cnt._flushProperties();
-              // } catch (e) { }
 
               if (DEBUG_OPT && DEBUG_dataChangeReflection) {
                 let jC1 = null;
@@ -613,7 +559,6 @@ export const injectRm3 = () => {
                   jC1 =
                     cnt.hostElement.__shady_native_textContent ||
                     cnt.hostElement.textContent;
-                  // console.log(83802, jKey, (cnt.hostElement.__shady_native_textContent || cnt.hostElement.textContent))
                 } catch (e) {
                   console.warn(e);
                 }
@@ -623,7 +568,6 @@ export const injectRm3 = () => {
                     jC2 =
                       cnt.hostElement.__shady_native_textContent ||
                       cnt.hostElement.textContent;
-                    // console.log(83804, jKey, (cnt.hostElement.__shady_native_textContent || cnt.hostElement.textContent))
                   } catch (e) {
                     console.warn(e);
                   }
@@ -655,32 +599,22 @@ export const injectRm3 = () => {
               return elm;
             }
 
-            // console.log('condi88', entryRecord[1] < 0 , entryRecord[2] > 0 , !!entryRecord[4], !!entryRecord[0].deref())
 
             entryRecord[4] = false;
 
-            // console.log(entryRecord);
-            // console.log('nodeDeleted',2, entryRecord[0]?.deref()?.nodeName)
             availablePool.deleteNode(node);
             node = prevNode;
           }
-          // for(const ) availablePool
-          // noTimeCheck = false;
         }
       } catch (e) {
         console.warn(e);
       }
       noTimeCheck = false;
 
-      // console.log('createComponentDefine_', a, b, c)
 
-      // if (!reusePool.has(componentTag)) reusePool.set(componentTag, new LinkedArray()); // xx858
 
-      // const pool = reusePool.get(componentTag); // xx858
-      // if (!(pool instanceof LinkedArray)) throw new Error(); // xx858
 
       const newElement = this.createComponent9512_(a, b, c, onCreateComponentError);
-      // if(componentTag.indexOf( 'ticker')>=0)console.log(1883, a,newElement)
 
       try {
         const cntE = insp(newElement);
@@ -696,7 +630,6 @@ export const injectRm3 = () => {
               cProtoE.attached9512 = cProtoE.attached;
 
               cProtoE.attached = attachedDefine;
-              // hookTos.add(a);
             }
           } else {
             if (
@@ -706,7 +639,6 @@ export const injectRm3 = () => {
               cntE.attached9512 = cntE.attached;
 
               cntE.attached = attachedDefine;
-              // hookTos.add(a);
             }
           }
         }
@@ -723,7 +655,6 @@ export const injectRm3 = () => {
               cProtoE.detached9512 = cProtoE.detached;
 
               cProtoE.detached = detachedDefine;
-              // hookTos.add(a);
             }
           } else {
             if (
@@ -733,13 +664,11 @@ export const injectRm3 = () => {
               cntE.detached9512 = cntE.detached;
 
               cntE.detached = detachedDefine;
-              // hookTos.add(a);
             }
           }
         }
 
         const acceptance = true;
-        // const acceptance = !cntE.__dataReady && cntE.__dataInvalid !== false; // we might need to change the acceptance condition along with Coding updates.
         if (acceptance) {
           // [[ weak ElementNode, attached time, detached time, time of change, inside availablePool, reuse count ]]
           const entryRecord = [new WeakRef(newElement), -1, -1, -1, false, 0];

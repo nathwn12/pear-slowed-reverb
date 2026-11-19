@@ -38,7 +38,6 @@ declare global {
   }
 }
 
-// import { Howl as _Howl } from 'howler';
 declare module 'howler' {
   interface Howl {
     _sounds: {
