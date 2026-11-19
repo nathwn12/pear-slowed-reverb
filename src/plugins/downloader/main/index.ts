@@ -540,7 +540,7 @@ async function iterableStreamToProcessedUint8Array(
 
       sendFeedback(t('plugins.downloader.backend.feedback.converting'));
 
-      ffmpegInstance.setProgress(({ ratio }) => {
+      ffmpegInstance.setProgress(({ ratio }: { ratio: number }) => {
         sendFeedback(
           t('plugins.downloader.backend.feedback.conversion-progress', {
             percent: Math.floor(ratio * 100),
