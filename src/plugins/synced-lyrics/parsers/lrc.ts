@@ -11,7 +11,7 @@ interface LRCLine {
   words: { timeInMs: number; word: string }[];
 }
 
-interface LRC {
+interface LRCData {
   tags: LRCTag[];
   lines: LRCLine[];
 }
@@ -24,8 +24,8 @@ const timestampRegex = /^\[(?<minutes>\d+):(?<seconds>\d+)\.(?<centiseconds>\d+)
 const wordRegex = /<(?<minutes>\d+):(?<seconds>\d+)\.(?<centiseconds>\d+)> *(?<word>\w+)/g;
 
 export const LRC = {
-  parse: (text: string): LRC => {
-    const lrc: LRC = {
+  parse: (text: string): LRCData => {
+    const lrc: LRCData = {
       tags: [],
       lines: [],
     };
@@ -42,8 +42,8 @@ export const LRC = {
         const { minutes, seconds, centiseconds } = match;
         const milliseconds = match.centiseconds.padEnd(3, '0');
         const timeInMs =
-          ((parseInt(minutes) * 60) * 1000) +
-          (parseInt(seconds) * 1000) +
+          parseInt(minutes) * 60 * 1000 +
+          parseInt(seconds) * 1000 +
           parseInt(milliseconds);
 
         timestamps.push({
@@ -75,8 +75,8 @@ export const LRC = {
         const { minutes, seconds, centiseconds, word } = groups!;
         const milliseconds = centiseconds.padEnd(3, '0');
         const timeInMs =
-          ((parseInt(minutes) * 60) * 1000) +
-          (parseInt(seconds) * 1000) +
+          parseInt(minutes) * 60 * 1000 +
+          parseInt(seconds) * 1000 +
           parseInt(milliseconds);
 
         return { timeInMs, word };

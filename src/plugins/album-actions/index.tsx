@@ -37,7 +37,6 @@ export default createPlugin<
   renderer: {
     waiting: false,
     start() {
-      // Waits for pagechange
       this.onPageChange();
       this.observer = new MutationObserver(() => {
         this.onPageChange();
@@ -107,7 +106,6 @@ export default createPlugin<
         buttonContainer,
       );
 
-      //Finds the playlist
       const playlist =
         document.querySelector('ytmusic-playlist-shelf-renderer') ??
         document.querySelector(':nth-last-child(1 of ytmusic-shelf-renderer)');
@@ -116,7 +114,6 @@ export default createPlugin<
         return;
       }
 
-      // Adds an observer for every button, so it gets updated when one is clicked
       this.changeObserver?.disconnect();
 
       this.changeObserver = new MutationObserver(() => {
@@ -157,7 +154,7 @@ export default createPlugin<
             case 'dislike':
               if (size > 0) {
                 setShowDislike(true);
-                setDislikeMaskSize(`100% ${100 - ((size / listsLength) * 100)}%`);
+                setDislikeMaskSize(`100% ${100 - (size / listsLength) * 100}%`);
               } else {
                 setShowDislike(false);
               }
@@ -166,7 +163,7 @@ export default createPlugin<
               if (size > 0) {
                 setShowUnDislike(true);
                 setUnDislikeMaskSize(
-                  `100% ${100 - ((size / listsLength) * 100)}%`,
+                  `100% ${100 - (size / listsLength) * 100}%`,
                 );
               } else {
                 setShowUnDislike(false);
@@ -175,7 +172,7 @@ export default createPlugin<
             case 'like':
               if (size > 0) {
                 setShowLike(true);
-                setLikeMaskSize(`100% ${100 - ((size / listsLength) * 100)}%`);
+                setLikeMaskSize(`100% ${100 - (size / listsLength) * 100}%`);
               } else {
                 setShowLike(false);
               }
@@ -183,7 +180,7 @@ export default createPlugin<
             case 'unlike':
               if (size > 0) {
                 setShowUnLike(true);
-                setUnLikeMaskSize(`100% ${100 - ((size / listsLength) * 100)}%`);
+                setUnLikeMaskSize(`100% ${100 - (size / listsLength) * 100}%`);
               } else {
                 setShowUnLike(false);
               }

@@ -1,9 +1,7 @@
-// This is used for to control the songs
 import { type BrowserWindow, ipcMain } from 'electron';
 
 import { LikeType } from '@/types/datahost-get-state';
 
-// see protocol-handler.ts
 type ArgsType<T> = T | string[] | undefined;
 
 const parseNumberFromArgsType = (args: ArgsType<number>) => {
@@ -38,7 +36,6 @@ const parseStringFromArgsType = (args: ArgsType<string>) => {
 
 export const getSongControls = (win: BrowserWindow) => {
   return {
-    // Playback
     previous: () => win.webContents.send('peard:previous-video'),
     next: () => win.webContents.send('peard:next-video'),
     play: () => win.webContents.send('peard:play'),
@@ -74,7 +71,6 @@ export const getSongControls = (win: BrowserWindow) => {
         win.webContents.send('peard:switch-repeat', n);
       }
     },
-    // General
     setVolume: (volume: ArgsType<number>) => {
       const volumeNumber = parseNumberFromArgsType(volume);
       if (volumeNumber !== null) {
@@ -104,7 +100,6 @@ export const getSongControls = (win: BrowserWindow) => {
         keyCode: '/',
       });
     },
-    // Queue
     addSongToQueue: (videoId: string, queueInsertPosition: string) => {
       const videoIdValue = parseStringFromArgsType(videoId);
       if (videoIdValue === null) return;

@@ -80,19 +80,16 @@ let win: BrowserWindow;
 let playingUrl: string;
 
 const isPremium = async () => {
-  // If signed out, it is understood as non-premium
   const isSignedIn = (await win.webContents.executeJavaScript(
     '!!yt.config_.LOGGED_IN',
   )) as boolean;
 
   if (!isSignedIn) return false;
 
-  // If signed in, check if the upgrade button is present
   const upgradeBtnIconPathData = (await win.webContents.executeJavaScript(
     'document.querySelector(\'iron-iconset-svg[name="yt-sys-icons"] #\u0079\u006f\u0075\u0074\u0075\u0062\u0065_music_monochrome\')?.firstChild?.getAttribute("d")?.substring(0, 15)',
   )) as string | null;
 
-  // Fallback to non-premium if the icon is not found
   if (!upgradeBtnIconPathData) return false;
 
   const upgradeButton = `ytmusic-guide-entry-renderer:has(> tp-yt-paper-item > yt-icon path[d^="${upgradeBtnIconPathData}"])`;
@@ -165,7 +162,6 @@ export const onMainLoad = async ({
 
     try {
       const [width, height] = win.getSize();
-      // emulate jsdom using linkedom
       const window = new (await import('happy-dom')).Window({
         width,
         height,
@@ -191,8 +187,6 @@ export const onMainLoad = async ({
           .privateDoNotAccessOrElseSafeScriptWrappedValue;
 
       if (interpreterJavascript) {
-        // This is a workaround to run the interpreterJavascript code
-        // Maybe there is a better way to do this (e.g. https://github.com/Siubaak/sval ?)
         // oxlint-disable-next-line typescript/no-implied-eval,typescript/no-unsafe-call
         new Function(interpreterJavascript)();
 
@@ -230,8 +224,8 @@ export const onConfigChange = (newConfig: DownloaderPluginConfig) => {
 
 export async function downloadSong(
   url: string,
-  playlistFolder?: string ,
-  trackId?: string ,
+  playlistFolder?: string,
+  trackId?: string,
   increasePlaylistProgress: (value: number) => void = () => {},
 ) {
   let resolvedName;
@@ -251,8 +245,8 @@ export async function downloadSong(
 
 export async function downloadSongFromId(
   id: string,
-  playlistFolder?: string ,
-  trackId?: string ,
+  playlistFolder?: string,
+  trackId?: string,
   increasePlaylistProgress: (value: number) => void = () => {},
 ) {
   let resolvedName;
@@ -329,8 +323,8 @@ async function downloadSongUnsafe(
   isId: boolean,
   idOrUrl: string,
   setName: (name: string) => void,
-  playlistFolder?: string ,
-  trackId?: string ,
+  playlistFolder?: string,
+  trackId?: string,
   increasePlaylistProgress: (value: number) => void = () => {},
 ) {
   const sendFeedback = (message: unknown, progress?: number) => {
@@ -380,7 +374,6 @@ async function downloadSongUnsafe(
   let playabilityStatus = info.playability_status;
   let bypassedResult: YT.VideoInfo;
   if (playabilityStatus?.status === 'LOGIN_REQUIRED') {
-    // Try to bypass the age restriction
     bypassedResult = await getAndroidTvInfo(id);
     playabilityStatus = bypassedResult.playability_status;
 
@@ -506,8 +499,6 @@ async function downloadChunks(
       }),
       ratio,
     );
-    // 15% for download, 85% for conversion
-    // This is a very rough estimate, trying to make the progress bar look nice
     increasePlaylistProgress(ratio * 0.15);
   }
   return chunks;
@@ -549,14 +540,14 @@ async function iterableStreamToProcessedUint8Array(
 
       sendFeedback(t('plugins.downloader.backend.feedback.converting'));
 
-      ffmpegInstance.setProgress(({ ratio }) => {
+      ffmpegInstance.setProgress(({ ratio }: { ratio: number }) => {
         sendFeedback(
           t('plugins.downloader.backend.feedback.conversion-progress', {
             percent: Math.floor(ratio * 100),
           }),
           ratio,
         );
-        increasePlaylistProgress(0.15 + (ratio * 0.85));
+        increasePlaylistProgress(0.15 + ratio * 0.85);
       });
 
       const safeVideoNameWithExtension = `${safeVideoName}.${extension}`;
@@ -600,7 +591,6 @@ async function writeID3(
     sendFeedback(t('plugins.downloader.backend.feedback.writing-id3'));
     const tags: NodeID3.Tags = {};
 
-    // Create the metadata tags
     tags.title = metadata.title;
     tags.artist = metadata.artist;
 
@@ -780,7 +770,7 @@ export async function downloadPlaylist(givenUrl?: string | URL) {
 
   const increaseProgress = (itemPercentage: number) => {
     const currentProgress = (counter - 1) / (items.length ?? 1);
-    const newProgress = currentProgress + (progressStep * itemPercentage);
+    const newProgress = currentProgress + progressStep * itemPercentage;
     win.setProgressBar(newProgress);
   };
 
@@ -836,7 +826,6 @@ function getFFmpegMetadataArgs(metadata: CustomSongInfo) {
   ];
 }
 
-// Playlist radio modifier needs to be cut from playlist ID
 const INVALID_PLAYLIST_MODIFIER = 'RDAMPL';
 
 const getPlaylistID = (aURL?: URL): string | null | undefined => {
@@ -869,10 +858,7 @@ const getMetadata = (info: YTMusic.TrackInfo): CustomSongInfo => ({
   mediaType: MediaType.Audio,
 });
 
-// This is used to bypass age restrictions
 const getAndroidTvInfo = async (id: string): Promise<YT.VideoInfo> => {
-  // GetInfo 404s with the bypass, so we use getBasicInfo instead
-  // that's fine as we only need the streaming data
   return await yt.getBasicInfo(id, {
     client: 'TV_EMBEDDED',
   });

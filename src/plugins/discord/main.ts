@@ -20,7 +20,6 @@ export const backend = createBackend<
   lastTimeUpdateSent: 0,
 
   async start(ctx) {
-    // Get initial configuration from the context
     const config = await ctx.getConfig();
     discordService = new DiscordService(ctx.window, config);
 

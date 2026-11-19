@@ -35,8 +35,6 @@ const audioCanPlayListener = (e: CustomEvent<Compressor>) => {
   const { audioContext } = e.detail;
   const sourceNode = e.detail.audioSource;
 
-  // Use an audio analyser similar to Hark
-  // https://github.com/otalk/hark/blob/master/hark.bundle.js
   const analyser = audioContext.createAnalyser();
   analyser.fftSize = 512;
   analyser.smoothingTimeConstant = smoothing;
@@ -50,7 +48,6 @@ const audioCanPlayListener = (e: CustomEvent<Compressor>) => {
 
       let history = 0;
       if (currentVolume > threshold && isSilent) {
-        // Trigger quickly, short history
         for (
           let i = speakingHistory.length - 3;
           i < speakingHistory.length;
@@ -60,7 +57,6 @@ const audioCanPlayListener = (e: CustomEvent<Compressor>) => {
         }
 
         if (history >= 2) {
-          // Not silent
           isSilent = false;
           hasAudioStarted = true;
         }

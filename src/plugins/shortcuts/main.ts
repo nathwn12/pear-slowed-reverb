@@ -60,7 +60,6 @@ export const onMainLoad = async ({
 
   function registerAllShortcuts(container: ShortcutMappingType, type: string) {
     for (const _action in container) {
-      // HACK: _action is detected as string, but it's actually a key of ShortcutMappingType
       const action = _action as keyof ShortcutMappingType;
 
       if (!container[action]) {
@@ -86,7 +85,6 @@ export const onMainLoad = async ({
           actionCallback,
         );
       } else {
-        // Type === "local"
         _registerLocalShortcut(window, local[action], actionCallback);
       }
     }

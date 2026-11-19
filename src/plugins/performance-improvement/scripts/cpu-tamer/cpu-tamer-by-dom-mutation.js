@@ -31,7 +31,6 @@ export const injectCpuTamerByDomMutation = ((__CONTEXT__) => {
 
   const win = this instanceof Window ? this : window;
 
-  // Create a unique key for the script and check if it is already running
   const hkey_script = 'nzsxclvflluv';
   if (win[hkey_script]) throw new Error('Duplicated Userscript Calling'); // avoid duplicated scripting
   win[hkey_script] = true;
@@ -53,27 +52,6 @@ export const injectCpuTamerByDomMutation = ((__CONTEXT__) => {
     };
   })();
 
-  // for future use
-  /*
-  const timeupdateDT = (() => {
-
-    window.__j6YiAc__ = 1;
-
-    document.addEventListener('timeupdate', () => {
-      window.__j6YiAc__ = Date.now();
-    }, true);
-
-    let kz = -1;
-    try {
-      kz = top.__j6YiAc__;
-    } catch (e) {
-
-    }
-
-    return kz >= 1 ? () => top.__j6YiAc__ : () => window.__j6YiAc__;
-
-  })();
-  */
 
   const cleanContext = async (win) => {
     const waitFn = requestAnimationFrame; // shall have been binded to window
@@ -150,11 +128,6 @@ export const injectCpuTamerByDomMutation = ((__CONTEXT__) => {
 
     const { setTimeout, setInterval, clearTimeout, clearInterval } = __CONTEXT__;
 
-    /*
-    /-** @type {Function|null} *-/
-    // let afInterupter = null;
-    */
-
     const getDMHelper = () => {
       let _dm = document.getElementById('d-m');
       if (!_dm) {
@@ -168,7 +141,6 @@ export const injectCpuTamerByDomMutation = ((__CONTEXT__) => {
       let j = 0;
       let attributeName_;
       while (dm._hasAttribute(attributeName_ = `dm-${Math.floor(Math.random() * 314159265359 + 314159265359).toString(36)}`)) {
-        // none
       }
       const attributeName = attributeName_;
       let sr = null;
@@ -266,16 +238,6 @@ export const injectCpuTamerByDomMutation = ((__CONTEXT__) => {
 
     })();
 
-    /*
-        let mInterupter = null;
-        setInterval(() => {
-        if (mInterupter === afInterupter) {
-            if (mInterupter !== null) afInterupter = mInterupter = (mInterupter(), null);
-        } else {
-            mInterupter = afInterupter;
-        }
-        }, 125);
-    */
   });
 
 });

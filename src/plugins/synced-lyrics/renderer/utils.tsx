@@ -108,7 +108,6 @@ export const simplifyUnicode = (text?: string) =>
         .trim()
     : text;
 
-// Japanese Shinjitai
 const shinjitai = [
   20055, 20081, 20120, 20124, 20175, 26469, 20341, 20206, 20253, 20605, 20385,
   20537, 20816, 20001, 20869, 23500, 28092, 20956, 21104, 21091, 21092, 21172,
@@ -161,14 +160,12 @@ const hasJapanese = (lines: string[]) =>
     (line) => Kuroshiro.Util.hasKana(line) || shinjitaiRegex.test(line),
   );
 
-// tests for Hangul characters, sufficient for our use case
 const hasKorean = (lines: string[]) =>
   lines.some((line) => /[ㄱ-ㅎㅏ-ㅣ가-힣]+/.test(line));
 
 const hasChinese = (lines: string[]) =>
   lines.some((line) => /[\u4E00-\u9FFF]+/.test(line));
 
-// https://en.wikipedia.org/wiki/Thai_(Unicode_block)
 const hasThai = (lines: string[]) =>
   lines.some((line) => /[\u0E00-\u0E7F]+/.test(line));
 
@@ -252,7 +249,6 @@ export const romanize = async (line: string) => {
     return handler(line);
   }
 
-  // fallback
   if (hasJapanese([line])) line = await romanizeJapanese(line);
   if (hasKorean([line])) line = romanizeHangul(line);
   if (hasChinese([line])) line = romanizeChinese(line);

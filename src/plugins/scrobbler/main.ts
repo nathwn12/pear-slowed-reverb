@@ -64,7 +64,6 @@ export const backend = createBackend<
 
   async start({ getConfig, setConfig, window }) {
     const config = (this.config = await getConfig());
-    // This will store the timeout that will trigger addScrobble
     let scrobbleTimer: NodeJS.Timeout | undefined;
 
     this.window = window;
@@ -74,11 +73,9 @@ export const backend = createBackend<
 
     registerCallback((songInfo: SongInfo, event) => {
       if (event === SongInfoEvent.TimeChanged) return;
-      // Set remove the old scrobble timer
       clearTimeout(scrobbleTimer);
       if (!songInfo.isPaused) {
         const configNonnull = this.config!;
-        // Scrobblers normally have no trouble working with official music videos
         if (
           !configNonnull.scrobbleOtherMedia &&
           songInfo.mediaType !== MediaType.Audio &&
@@ -87,13 +84,11 @@ export const backend = createBackend<
           return;
         }
 
-        // Scrobble when the song is halfway through, or has passed the 4-minute mark
         const scrobbleTime = Math.min(
           Math.ceil(songInfo.songDuration / 2),
           4 * 60,
         );
         if (scrobbleTime > (songInfo.elapsedSeconds ?? 0)) {
-          // Scrobble still needs to happen
           const timeToWait =
             (scrobbleTime - (songInfo.elapsedSeconds ?? 0)) * 1000;
           scrobbleTimer = setTimeout(

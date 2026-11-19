@@ -55,6 +55,4 @@ export type AppAPI = {
   playerApi: MusicPlayer;
 
   toastService: ToastService;
-
-  // TODO: Add more
 };

@@ -31,7 +31,6 @@ export const onPlayerApiReady = async (
   options = await context.getConfig();
   api = playerApi;
 
-  // Without this function it would rewrite config 20 time when volume change by 20
   const writeOptions = debounce(() => {
     context.setConfig(options);
   }, 1000);
@@ -44,10 +43,8 @@ export const onPlayerApiReady = async (
     slider.classList.remove('on-hover');
   }, 2500);
 
-  /** Restore saved volume and setup tooltip */
   async function firstRun() {
     if (typeof options.savedVolume === 'number') {
-      // Set saved volume as tooltip
       setTooltip(options.savedVolume);
 
       if (api.getVolume() !== options.savedVolume) {
@@ -67,7 +64,6 @@ export const onPlayerApiReady = async (
     if (!noVid) {
       setupVideoPlayerOnwheel();
       if (!(await window.mainConfig.plugins.isEnabled('video-toggle'))) {
-        // Video-toggle handles hud positioning on its own
         const videoMode = () =>
           api.getPlayerResponse().videoDetails?.musicVideoType !==
           'MUSIC_VIDEO_TYPE_ATV';
@@ -111,14 +107,12 @@ export const onPlayerApiReady = async (
     hideVolumeHud(volumeHud);
   }
 
-  /** Add onwheel event to video player */
   function setupVideoPlayerOnwheel() {
     const panel = $<HTMLElement>('#main-panel');
     if (!panel) return;
 
     panel.addEventListener('wheel', (event) => {
       event.preventDefault();
-      // Event.deltaY < 0 means wheel-up
       changeVolume(event.deltaY < 0);
     });
   }
@@ -128,18 +122,15 @@ export const onPlayerApiReady = async (
     writeOptions();
   }
 
-  /** Add onwheel event to play bar and also track if play bar is hovered */
   function setupPlaybar() {
     const playerbar = $<HTMLElement>('ytmusic-player-bar');
     if (!playerbar) return;
 
     playerbar.addEventListener('wheel', (event) => {
       event.preventDefault();
-      // Event.deltaY < 0 means wheel-up
       changeVolume(event.deltaY < 0);
     });
 
-    // Keep track of mouse position for showVolumeSlider()
     playerbar.addEventListener('mouseenter', () => {
       playerbar.classList.add('on-hover');
     });
@@ -151,12 +142,10 @@ export const onPlayerApiReady = async (
     setupSliderObserver();
   }
 
-  /** Save volume + Update the volume tooltip when volume-slider is manually changed */
   function setupSliderObserver() {
     const sliderObserver = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
         if (mutation.target.nodeName === 'TP-YT-PAPER-SLIDER') {
-          // This checks that volume-slider was manually set
           const target = mutation.target as HTMLInputElement;
           const targetValueNumeric = Number(target.value);
           if (
@@ -164,7 +153,6 @@ export const onPlayerApiReady = async (
             (typeof options.savedVolume !== 'number' ||
               Math.abs(options.savedVolume - targetValueNumeric) > 4)
           ) {
-            // Diff>4 means it was manually set
             setTooltip(targetValueNumeric);
             saveVolume(targetValueNumeric);
           }
@@ -175,7 +163,6 @@ export const onPlayerApiReady = async (
     const slider = $('#volume-slider');
     if (!slider) return;
 
-    // Observing only changes in 'value' of volume-slider
     sliderObserver.observe(slider, {
       attributeFilter: ['value'],
       attributeOldValue: true,
@@ -184,23 +171,16 @@ export const onPlayerApiReady = async (
 
   function setVolume(value: number) {
     api.setVolume(value);
-    // Save the new volume
     saveVolume(value);
 
-    // Change slider position (important)
     updateVolumeSlider();
 
-    // Change tooltips to new value
     setTooltip(value);
-    // Show volume slider
     showVolumeSlider();
-    // Show volume HUD
     showVolumeHud(value);
   }
 
-  /** If (toIncrease = false) then volume decrease */
   function changeVolume(toIncrease: boolean) {
-    // Apply volume change if valid
     const steps = Number(options.steps || 1);
     setVolume(
       toIncrease
@@ -211,7 +191,6 @@ export const onPlayerApiReady = async (
 
   function updateVolumeSlider() {
     const savedVolume = options.savedVolume ?? 0;
-    // Slider value automatically rounds to multiples of 5
     for (const slider of ['#volume-slider', '#expand-volume-slider']) {
       const silderElement = $<HTMLInputElement>(slider);
       if (silderElement) {
@@ -226,13 +205,11 @@ export const onPlayerApiReady = async (
     const slider = $<HTMLElement>('#volume-slider');
     if (!slider) return;
 
-    // This class display the volume slider if not in minimized mode
     slider.classList.add('on-hover');
 
     hideVolumeSlider(slider);
   }
 
-  // Set new volume as tooltip for volume slider and icon + expanding slider (appears when window size is small)
   const tooltipTargets = [
     '#volume-slider',
     'tp-yt-paper-icon-button.volume',

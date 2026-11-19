@@ -25,16 +25,15 @@ import packageJson from '../package.json';
 
 export type MenuTemplate = Electron.MenuItemConstructorOptions[];
 
-// True only if in-app-menu was loaded on launch
 const inAppMenuActive = await config.plugins.isEnabled('in-app-menu');
 
 const pluginEnabledMenu = async (
   plugin: string,
   label = '',
-  description?: string ,
+  description?: string,
   isNew = false,
   hasSubmenu = false,
-  refreshMenu?: (() => void) ,
+  refreshMenu?: () => void,
 ): Promise<Electron.MenuItemConstructorOptions> => ({
   label: label || plugin,
   sublabel: isNew ? t('main.menu.plugins.new') : undefined,
@@ -492,26 +491,22 @@ export const mainMenuTemplate = async (
             } as Electron.MenuItemConstructorOptions,
           ].concat(
             availableLanguages
-              .map(
-                (lang): Electron.MenuItemConstructorOptions => ({
-                  label: `${langResources[lang].translation.language?.name ?? 'Unknown'} (${langResources[lang].translation.language?.['local-name'] ?? 'Unknown'})`,
-                  type: 'checkbox',
-                  checked: (config.get('options.language') ?? 'en') === lang,
-                  click() {
-                    config.setMenuOption('options.language', lang);
-                    refreshMenu(win);
-                    setLanguage(lang);
-                    dialog.showMessageBox(win, {
-                      title: t(
-                        'main.menu.options.submenu.language.dialog.title',
-                      ),
-                      message: t(
-                        'main.menu.options.submenu.language.dialog.message',
-                      ),
-                    });
-                  },
-                }),
-              )
+              .map((lang): Electron.MenuItemConstructorOptions => ({
+                label: `${langResources[lang].translation.language?.name ?? 'Unknown'} (${langResources[lang].translation.language?.['local-name'] ?? 'Unknown'})`,
+                type: 'checkbox',
+                checked: (config.get('options.language') ?? 'en') === lang,
+                click() {
+                  config.setMenuOption('options.language', lang);
+                  refreshMenu(win);
+                  setLanguage(lang);
+                  dialog.showMessageBox(win, {
+                    title: t('main.menu.options.submenu.language.dialog.title'),
+                    message: t(
+                      'main.menu.options.submenu.language.dialog.message',
+                    ),
+                  });
+                },
+              }))
               .sort((a, b) => a.label!.localeCompare(b.label!)),
           ),
         },
@@ -580,7 +575,6 @@ export const mainMenuTemplate = async (
                   label: t(
                     'main.menu.options.submenu.advanced-options.submenu.toggle-dev-tools',
                   ),
-                  // Cannot use "toggleDevTools" role in macOS
                   click() {
                     const { webContents } = win;
                     if (webContents.isDevToolsOpened()) {
@@ -751,7 +745,6 @@ async function setProxy(item: Electron.MenuItem, win: BrowserWindow) {
     config.setMenuOption('options.proxy', output);
     item.checked = output !== '';
   } else {
-    // User pressed cancel
     item.checked = !item.checked; // Reset checkbox
   }
 }

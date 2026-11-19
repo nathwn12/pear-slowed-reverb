@@ -9,5 +9,4 @@ export const providers = {
   [ProviderNames.LRCLib]: new LRCLib(),
   [ProviderNames.MusixMatch]: new MusixMatch(),
   [ProviderNames.LyricsGenius]: new LyricsGenius(),
-  // [ProviderNames.Megalobiz]: new Megalobiz(), // Disabled because it is too unstable and slow
 } as const;

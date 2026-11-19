@@ -47,18 +47,7 @@ export const onRendererLoad = async ({
   );
 };
 
-export const onPlayerApiReady = () => {
-  // NOT WORKING AFTER YTM UPDATE (last checked 2024-02-04)
-  //
-  // const htmlHeadStyle = document.querySelector('head > div > style');
-  // if (htmlHeadStyle) {
-  //   // HACK: This is a hack to remove the scrollbar width
-  //   htmlHeadStyle.innerHTML = htmlHeadStyle.innerHTML.replace(
-  //     'html::-webkit-scrollbar {width: var(--ytmusic-scrollbar-width);',
-  //     'html::-webkit-scrollbar { width: 0;',
-  //   );
-  // }
-};
+export const onPlayerApiReady = () => {};
 
 export const onConfigChange = (newConfig: InAppMenuConfig) => {
   setConfig(newConfig);

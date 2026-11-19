@@ -113,7 +113,6 @@ export default createPlugin({
       if (!video) return;
 
       video.addEventListener('timeupdate', this.timeUpdateListener);
-      // Reset segments on song end
       video.addEventListener('emptied', this.resetSegments);
     },
     stop() {

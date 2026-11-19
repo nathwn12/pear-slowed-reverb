@@ -1326,7 +1326,6 @@ export interface ServiceEndpointLikeEndpoint {
   removeLikeParams?: LikeParams;
 }
 
-// TODO: Add more
 export enum LikeParams {
   Oai3D = 'OAI%3D',
 }

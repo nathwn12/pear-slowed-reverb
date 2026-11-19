@@ -21,7 +21,9 @@ export type IStore = InstanceType<
 
 const migrations = {
   '>=3.12.0'(store: IStore) {
-    const blockerConfig = store.get('plugins.adblocker') as TrackerBlockerConfig;
+    const blockerConfig = store.get(
+      'plugins.adblocker',
+    ) as TrackerBlockerConfig;
     if (blockerConfig) {
       if (!Object.values(blockers).includes(blockerConfig.blocker)) {
         blockerConfig.blocker = blockers.InPlayer;
@@ -252,7 +254,6 @@ const migrations = {
       return;
     }
 
-    // Include custom options
     // oxlint-disable-next-line typescript/no-explicit-any
     const plugins: Record<string, any> = {
       adblocker: {
@@ -282,7 +283,6 @@ const migrations = {
 export const store = new Store({
   defaults: {
     ...defaults,
-    // README: 'plugin' uses deepmerge to populate the default values, so it is not necessary to include it here
   },
   clearInvalidConfig: false,
   migrations,

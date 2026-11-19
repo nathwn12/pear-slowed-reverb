@@ -71,7 +71,6 @@ export default createPlugin({
   config: {
     enabled: false,
     type: 'butterchurn',
-    // Config per visualizer
     butterchurn: {
       preset: 'martin [shadow harlequins shape code] - fata morgana',
       blendTimeInSeconds: 2.7,

@@ -50,7 +50,6 @@ export const register = (
     const { id } = ctx.req.param();
 
     if (config.authorizedClients.includes(id)) {
-      // SKIP CHECK
     } else if (config.authStrategy === AuthStrategy.AUTH_AT_FIRST) {
       const result = await dialog.showMessageBox({
         title: t('plugins.api-server.dialog.request.title'),
@@ -71,7 +70,6 @@ export const register = (
         return ctx.body(null);
       }
     } else if (config.authStrategy === AuthStrategy.NONE) {
-      // SKIP CHECK
     }
 
     if (!config.authorizedClients.includes(id)) {

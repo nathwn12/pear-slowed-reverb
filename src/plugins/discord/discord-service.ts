@@ -18,7 +18,6 @@ import type { DiscordPluginConfig } from './index';
 import type { SongInfo } from '@/providers/song-info';
 import type { SetActivity } from '@xhayper/discord-rpc/dist/structures/ClientUser';
 
-// Public API definition for the Discord Service
 export class DiscordService {
   /**
    * Discord RPC client instance.
@@ -70,9 +69,7 @@ export class DiscordService {
     if (this.rpc) {
       try {
         this.rpc.destroy();
-      } catch {
-        // ignored
-      }
+      } catch {}
       this.rpc.removeAllListeners();
     }
 
@@ -100,12 +97,6 @@ export class DiscordService {
     });
   }
 
-  /**
-   * Builds the SetActivity payload for Discord Rich Presence.
-   * @param songInfo - Current song information.
-   * @param config - Plugin configuration.
-   * @returns The SetActivity object.
-   */
   private buildActivityInfo(
     songInfo: SongInfo,
     config: DiscordPluginConfig,
@@ -128,7 +119,6 @@ export class DiscordService {
       buttons: buildDiscordButtons(config, songInfo),
     };
 
-    // Handle paused state display
     if (songInfo.isPaused) {
       activityInfo.largeImageText = '⏸︎';
     } else if (
@@ -136,20 +126,16 @@ export class DiscordService {
       songInfo.songDuration > 0 &&
       typeof songInfo.elapsedSeconds === 'number'
     ) {
-      const songStartTime = Date.now() - (songInfo.elapsedSeconds * 1000);
+      const songStartTime = Date.now() - songInfo.elapsedSeconds * 1000;
       activityInfo.startTimestamp = Math.floor(songStartTime / 1000);
       activityInfo.endTimestamp = Math.floor(
-        (songStartTime + (songInfo.songDuration * 1000)) / 1000,
+        (songStartTime + songInfo.songDuration * 1000) / 1000,
       );
     }
 
     return activityInfo;
   }
 
-  /**
-   * Sets a timer to clear Discord activity if the music is paused for too long,
-   * based on the plugin configuration.
-   */
   private setActivityTimeout() {
     this.timerManager.clear(TimerKey.ClearActivity); // Clear any existing timeout
 
@@ -169,9 +155,6 @@ export class DiscordService {
     }
   }
 
-  /**
-   * Resets the internal state (except config and mainWindow), clears timers, and logs disconnection.
-   */
   private resetInfo() {
     this.ready = false;
     this.lastSongInfo = undefined;
@@ -191,7 +174,6 @@ export class DiscordService {
       this.timerManager.set(
         TimerKey.DiscordConnectRetry,
         () => {
-          // Stop retrying if auto-reconnect is disabled or already connected
           if (!this.autoReconnect || this.rpc.isConnected) {
             this.timerManager.clear(TimerKey.DiscordConnectRetry);
             if (this.rpc.isConnected) resolve();
@@ -202,7 +184,6 @@ export class DiscordService {
             return;
           }
 
-          // Attempt to login
           this.rpc
             .login()
             .then(() => {
@@ -255,12 +236,9 @@ export class DiscordService {
       this.resetInfo();
 
       if (this.autoReconnect) {
-        // For some reason @xhayper/discord-rpc leaves a dangling listener on connection failure
-        // so we destroy and recreate the RPC client before reconnecting.
         this.initializeRpc();
         this.connectRecursive();
       } else if (showErrorDialog && this.mainWindow) {
-        // connection failed
       }
     });
   }
@@ -275,9 +253,7 @@ export class DiscordService {
     try {
       this.rpc.removeAllListeners();
       this.rpc.destroy();
-    } catch {
-      // ignored
-    }
+    } catch {}
     this.resetInfo(); // Reset internal state
   }
 
@@ -298,11 +274,9 @@ export class DiscordService {
       return;
     }
 
-    // Cache the latest song info
     this.timerManager.clear(TimerKey.ClearActivity);
 
     if (!this.rpc || !this.ready) {
-      // skip update if not ready
       return;
     }
 
@@ -417,7 +391,6 @@ export class DiscordService {
    * @returns True if connected and ready, false otherwise.
    */
   isConnected(): boolean {
-    // Consider both connection and readiness state
     return this.rpc.isConnected && this.ready;
   }
 

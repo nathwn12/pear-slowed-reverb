@@ -45,7 +45,6 @@ export interface SongInfo {
   tags?: string[];
 }
 
-// Grab the native image using the src
 export const getImage = async (src: string): Promise<Electron.NativeImage> => {
   const result = await net.fetch(src);
   const output = nativeImage.createFromBuffer(
@@ -67,7 +66,6 @@ const handleData = async (
     return null;
   }
 
-  // Fill songInfo with empty values
   const songInfo: SongInfo = {
     title: '',
     alternativeTitle: '',
@@ -97,7 +95,6 @@ const handleData = async (
     if (microformat.pageOwnerDetails?.externalChannelId) {
       songInfo.artistUrl = `https://music.\u0079\u006f\u0075\u0074\u0075\u0062\u0065.com/channel/${microformat.pageOwnerDetails.externalChannelId}`;
     }
-    // Used for options.resumeOnStart
     config.set('url', microformat.urlCanonical);
     songInfo.alternativeTitle = microformat.linkAlternates.find(
       (link) => link.title,
@@ -128,7 +125,6 @@ const handleData = async (
         break;
       case 'MUSIC_VIDEO_TYPE_PODCAST_EPISODE':
         songInfo.mediaType = MediaType.PodcastEpisode;
-        // HACK: Podcast's participant is not the artist
         if (!config.get('options.usePodcastParticipantAsArtist')) {
           songInfo.artist = cleanupName(
             data.microformat.microformatDataRenderer.pageOwnerDetails.name,
@@ -137,7 +133,6 @@ const handleData = async (
         break;
       default:
         songInfo.mediaType = MediaType.OtherVideo;
-        // HACK: This is a workaround for "podcast" types where "musicVideoType" doesn't exist. Google :facepalm:
         if (
           !config.get('options.usePodcastParticipantAsArtist') &&
           (data.responseContext.serviceTrackingParams
@@ -175,14 +170,12 @@ export enum SongInfoEvent {
   TimeChanged = 'peard:time-changed',
 }
 
-// This variable will be filled with the callbacks once they register
 export type SongInfoCallback = (
   songInfo: SongInfo,
   event: SongInfoEvent,
 ) => void;
 const callbacks: Set<SongInfoCallback> = new Set();
 
-// This function will allow plugins to register callback that will be triggered when data changes
 export const registerCallback = (callback: SongInfoCallback) => {
   callbacks.add(callback);
 };
@@ -191,7 +184,6 @@ const registerProvider = (win: BrowserWindow) => {
   const dataMutex = new Mutex();
   let songInfo: SongInfo | null = null;
 
-  // This will be called when the song-info-front finds a new request with song data
   ipcMain.on('peard:video-src-changed', async (_, data: GetPlayerResponse) => {
     const tempSongInfo = await dataMutex.runExclusive<SongInfo | null>(
       async () => {
@@ -254,11 +246,9 @@ const registerProvider = (win: BrowserWindow) => {
 };
 
 const suffixesToRemove = [
-  // Artist names
   /\s*(- topic)$/i,
   /\s*vevo$/i,
 
-  // Video titles
   /\s*[(|[]official(.*?)[)|\]]/i, // (Official Music Video), [Official Visualizer], etc...
   /\s*[(|[]((lyrics?|visualizer|audio)\s*(video)?)[)|\]]/i,
   /\s*[(|[](performance video)[)|\]]/i,

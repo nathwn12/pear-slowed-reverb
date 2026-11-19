@@ -37,8 +37,8 @@ importers:
         specifier: 0.13.2
         version: 0.13.2
       '@ffmpeg.wasm/main':
-        specifier: 0.13.1
-        version: 0.13.1
+        specifier: 0.12.0
+        version: 0.12.0
       '@floating-ui/dom':
         specifier: 1.8.0
         version: 1.8.0
@@ -88,8 +88,8 @@ importers:
         specifier: 0.5.0
         version: 0.5.0
       bgutils-js:
-        specifier: 4.0.3
-        version: 4.0.3
+        specifier: 3.2.0
+        version: 3.2.0
       butterchurn:
         specifier: 3.0.0-beta.5
         version: 3.0.0-beta.5
@@ -727,9 +727,9 @@ packages:
   '@ffmpeg.wasm/core-mt@0.13.2':
     resolution: {integrity: sha512-3UgpMoOhpTslxluDvBrh0MULeNy55W+WWG00P+JnnCLpJulQxgi6mnIuGO03d2sfV5pyW/FqAwut+fiMLbRsPg==}
 
-  '@ffmpeg.wasm/main@0.13.1':
-    resolution: {integrity: sha512-WoEd9xp/N9VWddZ3y1cdRK/el52ZKLoqOS+BNQZcsbLQpkQuHrFG93+zY4VjMZ0aWno4pQG4TSgLzsexpukpHw==}
-    engines: {node: '>=14.0.0'}
+  '@ffmpeg.wasm/main@0.12.0':
+    resolution: {integrity: sha512-LILAKTrU3Rga2iXLsF9jeFxe2hNQFjWlrKuXPWSdCFeQ7Kg69fO4WwjNJ0CzjOyO6qtndRQMNKqf//N4fLYUBA==}
+    engines: {node: '>=12.16.1'}
 
   '@floating-ui/core@1.8.0':
     resolution: {integrity: sha512-0CIZ5itps/8x7BG8dEIhs53BvCUH2PCoogtakwRTut+Arm58sJooJ0AuZhLw2HJYIR5cMLNPBSS728sPho2khQ==}
@@ -1775,8 +1775,8 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  bgutils-js@4.0.3:
-    resolution: {integrity: sha512-nvhrzqRYqFcC3AJbf1fENc/jzyMk95wH9UC9ruQzTZCq+itYWuHi2a9leK/bC1lLfi+R4a28wJZxpD5KiTFf+w==}
+  bgutils-js@3.2.0:
+    resolution: {integrity: sha512-CacO15JvxbclbLeCAAm9DETGlLuisRGWpPigoRvNsccSCPEC4pwYwA2g2x/pv7Om/sk79d4ib35V5HHmxPBpDg==}
 
   birpc@4.0.0:
     resolution: {integrity: sha512-LShSxJP0KTmd101b6DRyGBj57LZxSDYWKitQNW/mi8GRMvZb078Uf9+pveax1DrVL89vm7mWe+TovdI/UDOuPw==}
@@ -2048,6 +2048,10 @@ packages:
     peerDependenciesMeta:
       electron:
         optional: true
+
+  data-uri-to-buffer@4.0.1:
+    resolution: {integrity: sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==}
+    engines: {node: '>= 12'}
 
   debounce-fn@6.0.0:
     resolution: {integrity: sha512-rBMW+F2TXryBwB54Q0d8drNEI+TfoS9JpNTAoVpukbWEhjXQq4rySFYLaqXMFXwdv61Zb2OHtj5bviSoimqxRQ==}
@@ -2458,6 +2462,10 @@ packages:
       picomatch:
         optional: true
 
+  fetch-blob@3.2.0:
+    resolution: {integrity: sha512-7yAQpD2UMJzLi1Dqv7qFYnPbaPx7ZfFK6PiIxQ4PfkGPyNyl2Ugx+a/umUonmKqjhM4DnfbMvdX6otXq83soQQ==}
+    engines: {node: ^12.20 || >= 14.13}
+
   fflate@0.8.3:
     resolution: {integrity: sha512-tbZNuJrLwGUp3zshBtdy4W+ORxZuIh8a5ilyIEQDC5rY1f3U20JMry0Ll3WBzU58EZKsEuJFXhb5gwv8CsPvgA==}
 
@@ -2494,6 +2502,10 @@ packages:
   form-data@4.0.6:
     resolution: {integrity: sha512-vKatAh4SlVfgbv+YtmhiRjhEMJsYpsG1Y2rMQtR+SVSbytsSD1YGzDIcrAJmdFec88u/+VoGmxnl+80gL1tRCQ==}
     engines: {node: '>= 6'}
+
+  formdata-polyfill@4.0.10:
+    resolution: {integrity: sha512-buewHzMvYL29jdeQTVILecSaZKnt/RJWjoZCF5OW60Z67/GmSLBkOFM7qh1PI3zFNtJbaZL5eQu1vLfazOwj4g==}
+    engines: {node: '>=12.20.0'}
 
   fs-extra@10.1.0:
     resolution: {integrity: sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==}
@@ -2767,6 +2779,9 @@ packages:
 
   is-unsafe@2.0.3:
     resolution: {integrity: sha512-ZBllczCCO267vgdFb6Tq3pv+LhHaCiGMdr+ZsuL+OopruAg7S+3ZDs1vD0RPC0uSrkjzbraxaGjtX1YBxjPeFQ==}
+
+  is-url@1.2.4:
+    resolution: {integrity: sha512-ITvGim8FhRiYe4IQ5uHSkj7pVaPDrCTkNd3yq3cV7iZAcJdHTUMPMEHcqSOy9xZ9qFenQCvi+2wjH9a1nXqHww==}
 
   is-what@4.1.16:
     resolution: {integrity: sha512-ZhMwEosbFJkA0YhFnNDgTM4ZxDRsS6HqTo7qsZM08fehyRYIYa0yHu5R6mgo1n/8MgaPBXiPimPD77baVFYg+A==}
@@ -3150,6 +3165,15 @@ packages:
   node-api-version@0.2.1:
     resolution: {integrity: sha512-2xP/IGGMmmSQpI1+O/k72jF/ykvZ89JeuKX3TLJAYPDVLUalrshrLHkeVcCCZqG/eEa635cr8IBYzgnDvM2O8Q==}
 
+  node-domexception@1.0.0:
+    resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
+    engines: {node: '>=10.5.0'}
+    deprecated: Use your platform's native DOMException instead
+
+  node-fetch@3.3.2:
+    resolution: {integrity: sha512-dRB78srN/l6gqWulah9SrxeYnxeddIG30+GOqK/9OlLVyLg3HPnr6SqOWTWOXKRwC2eGYCkZ59NNuSgvSrpgOA==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
   node-gyp-build@4.8.4:
     resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==}
     hasBin: true
@@ -3439,6 +3463,9 @@ packages:
 
   readable-stream@2.3.8:
     resolution: {integrity: sha512-8p0AUk4XODgIewSi0l8Epjs+EVnWiK7NoDIEGU0HhE7+ZyY8D1IMY7odu5lRrFXGg71L15KG8QrPmum45RTtdA==}
+
+  regenerator-runtime@0.13.11:
+    resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
 
   registry-auth-token@3.3.2:
     resolution: {integrity: sha512-JL39c60XlzCVgNrO+qq68FoNb56w/m7JYvGR2jT5iR1xBrUA3Mfx5Twk5rqTThPmQKMWydGmq8oFtDlxfrmxnQ==}
@@ -3990,6 +4017,10 @@ packages:
   vudio@2.1.1:
     resolution: {integrity: sha512-VkFQcFt/b/kpF5Eg5Sq+oXUo1Zp5aRFF4BSmIrOzau5o+5WMWwX9ae/EGJZstCyZFiCTU5iw1Y+u2BCGW6Y6Jw==}
 
+  web-streams-polyfill@3.3.3:
+    resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
+    engines: {node: '>= 8'}
+
   webcrypto-core@1.9.2:
     resolution: {integrity: sha512-gsXecm82UQNlTBURJGuqOWy1Ww08S3kZUcr3aOJS02Pk0xLtkfeUAVC0u0xhgdonFme80edSJUIJyuvL/7250Q==}
 
@@ -4502,7 +4533,11 @@ snapshots:
 
   '@ffmpeg.wasm/core-mt@0.13.2': {}
 
-  '@ffmpeg.wasm/main@0.13.1': {}
+  '@ffmpeg.wasm/main@0.12.0':
+    dependencies:
+      is-url: 1.2.4
+      node-fetch: 3.3.2
+      regenerator-runtime: 0.13.11
 
   '@floating-ui/core@1.8.0':
     dependencies:
@@ -5370,7 +5405,7 @@ snapshots:
 
   baseline-browser-mapping@2.10.40: {}
 
-  bgutils-js@4.0.3: {}
+  bgutils-js@3.2.0: {}
 
   birpc@4.0.0: {}
 
@@ -5654,6 +5689,8 @@ snapshots:
   custom-electron-prompt@1.6.1(electron@42.5.0(supports-color@7.2.0)):
     optionalDependencies:
       electron: 42.5.0(supports-color@7.2.0)
+
+  data-uri-to-buffer@4.0.1: {}
 
   debounce-fn@6.0.0:
     dependencies:
@@ -6148,6 +6185,11 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.4
 
+  fetch-blob@3.2.0:
+    dependencies:
+      node-domexception: 1.0.0
+      web-streams-polyfill: 3.3.3
+
   fflate@0.8.3: {}
 
   file-entry-cache@8.0.0:
@@ -6187,6 +6229,10 @@ snapshots:
       es-set-tostringtag: 2.1.0
       hasown: 2.0.4
       mime-types: 2.1.35
+
+  formdata-polyfill@4.0.10:
+    dependencies:
+      fetch-blob: 3.2.0
 
   fs-extra@10.1.0:
     dependencies:
@@ -6482,6 +6528,8 @@ snapshots:
   is-promise@4.0.0: {}
 
   is-unsafe@2.0.3: {}
+
+  is-url@1.2.4: {}
 
   is-what@4.1.16: {}
 
@@ -6798,6 +6846,14 @@ snapshots:
     dependencies:
       semver: 7.8.6
 
+  node-domexception@1.0.0: {}
+
+  node-fetch@3.3.2:
+    dependencies:
+      data-uri-to-buffer: 4.0.1
+      fetch-blob: 3.2.0
+      formdata-polyfill: 4.0.10
+
   node-gyp-build@4.8.4: {}
 
   node-gyp@13.0.0:
@@ -7101,6 +7157,8 @@ snapshots:
       safe-buffer: 5.1.2
       string_decoder: 1.1.1
       util-deprecate: 1.0.2
+
+  regenerator-runtime@0.13.11: {}
 
   registry-auth-token@3.3.2:
     dependencies:
@@ -7624,6 +7682,8 @@ snapshots:
       vite: 8.1.0(@types/node@26.0.0)(jiti@2.7.0)(terser@5.48.0)(yaml@2.9.0)
 
   vudio@2.1.1(patch_hash=0e06c2ed11c02bdc490c209fa80070e98517c2735c641f5738b6e15d7dc1959d): {}
+
+  web-streams-polyfill@3.3.3: {}
 
   webcrypto-core@1.9.2:
     dependencies:

@@ -60,12 +60,10 @@ export default createPlugin({
     });
 
     const setThumbar = (songInfo: SongInfo) => {
-      // Wait for song to start before setting thumbar
       if (!songInfo?.title) {
         return;
       }
 
-      // Win32 require full rewrite of components
       window.setThumbarButtons([
         {
           tooltip: 'Previous',
@@ -76,7 +74,6 @@ export default createPlugin({
         },
         {
           tooltip: 'Play/Pause',
-          // Update icon based on play state
           icon: songInfo.isPaused ? images.play : images.pause,
           click() {
             playPause();
@@ -94,14 +91,11 @@ export default createPlugin({
 
     registerCallback((songInfo, event) => {
       if (event !== SongInfoEvent.TimeChanged) {
-        // Update currentsonginfo for win.on('show')
         currentSongInfo = songInfo;
-        // Update thumbar
         setThumbar(songInfo);
       }
     });
 
-    // Need to set thumbar again after win.show
     window.on('show', () => setThumbar(currentSongInfo));
   },
 });

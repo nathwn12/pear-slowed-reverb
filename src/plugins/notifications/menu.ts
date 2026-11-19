@@ -18,7 +18,6 @@ export const onMenu = async ({
   const getToastStyleMenuItems = (options: NotificationsPluginConfig) => {
     const array = Array.from({ length: Object.keys(ToastStyles).length });
 
-    // ToastStyles index starts from 1
     for (const [name, index] of Object.entries(ToastStyles)) {
       array[index - 1] = {
         label: snakeToCamel(name),
@@ -50,11 +49,9 @@ export const onMenu = async ({
           label: t('plugins.notifications.menu.interactive'),
           type: 'checkbox',
           checked: config.interactive,
-          // Doesn't update until restart
           click: (item: MenuItem) => setConfig({ interactive: item.checked }),
         },
         {
-          // Submenu with settings for interactive notifications (name shouldn't be too long)
           label: t('plugins.notifications.menu.interactive-settings.label'),
           submenu: [
             {

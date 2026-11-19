@@ -31,7 +31,6 @@ export const injectCpuTamerByAnimationFrame = ((__CONTEXT__) => {
 
   const win = this instanceof Window ? this : window;
 
-  // Create a unique key for the script and check if it is already running
   const hkey_script = 'nzsxclvflluv';
   if (win[hkey_script]) throw new Error('Duplicated Userscript Calling'); // avoid duplicated scripting
   win[hkey_script] = true;
@@ -54,7 +53,6 @@ export const injectCpuTamerByAnimationFrame = ((__CONTEXT__) => {
   })();
 
   const isGPUAccelerationAvailable = (() => {
-    // https://gist.github.com/cvan/042b2448fcecefafbb6a91469484cdf8
     try {
       const canvas = document.createElement('canvas');
       return !!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));

@@ -265,10 +265,6 @@ export default createPlugin({
         }
       };
 
-      /**
-       * On load, after a delay, the page overrides the playback-mode to 'OMV_PREFERRED' which causes weird aspect ratio in the image container
-       * this function fix the problem by overriding that override :)
-       */
       const forcePlaybackMode = () => {
         if (player) {
           const playbackModeObserver = new MutationObserver((mutations) => {

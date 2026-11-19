@@ -95,7 +95,5 @@ export const padHangulFields = (songInfo: SongInfo): void => {
  * @returns True if the time difference suggests a seek, false otherwise.
  */
 export const isSeek = (oldSeconds: number, newSeconds: number): boolean => {
-  // Consider it a seek if the time difference is greater than 2 seconds
-  // (allowing for minor discrepancies in reporting)
   return Math.abs(newSeconds - oldSeconds) > 2;
 };

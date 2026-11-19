@@ -1,4 +1,3 @@
-// Segments are an array [ [start, end], … ]
 import type { Segment } from './types';
 
 export const sortSegments = (segments: Segment[]) => {
