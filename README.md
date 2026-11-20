@@ -7,6 +7,10 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="MIT" /></a>
 </p>
 
+<p align="center">
+  <img src="web/screenshot.png" width="720" alt="pear-slowed-reverb playing a track in YouTube Music on Windows" />
+</p>
+
 ## Why pear-slowed-reverb
 
 This is a maintained fork of [pear-devs/pear-desktop](https://github.com/pear-devs/pear-desktop). Its release pipeline and updater point at this repository, so Windows builds and their updates come from here rather than upstream. The fork keeps up with upstream's plugin set and carries dependency fixes on top. Upstream's MIT licence and copyright stay untouched.
