@@ -30,7 +30,7 @@ pnpm install --frozen-lockfile
 pnpm dist:win:x64
 ```
 
-## Use
+## Use it
 
 Open the app and sign in with your YouTube account. Playback, library and search work as in Pear Desktop.
 
@@ -78,4 +78,4 @@ pnpm dist:win:x64
 - [Upstream: pear-devs/pear-desktop](https://github.com/pear-devs/pear-desktop)
 - [MIT](LICENSE)
 
-Built by nathwn12
+<p align="center"><sub>Built by nathwn12</sub></p>
