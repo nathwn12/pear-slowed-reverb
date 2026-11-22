@@ -32,7 +32,7 @@ importers:
         version: 2.0.0(@types/node@26.0.0)
       '@electron/remote':
         specifier: 2.1.4
-        version: 2.1.4(electron@42.5.0(supports-color@7.2.0))
+        version: 2.1.4(electron@45.4.1(supports-color@7.2.0))
       '@ffmpeg.wasm/core-mt':
         specifier: 0.13.2
         version: 0.13.2
@@ -47,10 +47,10 @@ importers:
         version: 2.0.5
       '@ghostery/adblocker-electron':
         specifier: 2.20.3
-        version: 2.20.3(electron@42.5.0(supports-color@7.2.0))
+        version: 2.20.3(electron@45.4.1(supports-color@7.2.0))
       '@ghostery/adblocker-electron-preload':
         specifier: 2.20.3
-        version: 2.20.3(electron@42.5.0(supports-color@7.2.0))
+        version: 2.20.3(electron@45.4.1(supports-color@7.2.0))
       '@hono/node-server':
         specifier: 2.1.8
         version: 2.1.8(hono@4.13.18)
@@ -107,7 +107,7 @@ importers:
         version: 15.1.0
       custom-electron-prompt:
         specifier: 1.6.1
-        version: 1.6.1(electron@42.5.0(supports-color@7.2.0))
+        version: 1.6.1(electron@45.4.1(supports-color@7.2.0))
       deepmerge-ts:
         specifier: 8.0.2
         version: 8.0.2
@@ -281,8 +281,8 @@ importers:
         specifier: 0.38.59
         version: 0.38.59
       electron:
-        specifier: 42.5.0
-        version: 42.5.0(supports-color@7.2.0)
+        specifier: 45.4.1
+        version: 45.4.1(supports-color@7.2.0)
       electron-builder:
         specifier: 26.18.0
         version: 26.18.0(electron-builder-squirrel-windows@26.18.0)(supports-color@7.2.0)
@@ -2258,8 +2258,8 @@ packages:
     resolution: {integrity: sha512-bO3y10YikuUwUuDUQRM4KfwNkKhnpVO7IPdbsrejwN9/AABJzzTQ4GeHwyzNSrVO+tEH3/Np255a3sVZpZDjvg==}
     engines: {node: '>=8.0.0'}
 
-  electron@42.5.0:
-    resolution: {integrity: sha512-cYEKS9XFz+c9fAB4jI0x49yz1FFzB55r3q96wu9YkwwJMv7t9202IE/ltlgy6yitl/J4M7C8JQcmUqdzDvPl/w==}
+  electron@45.4.1:
+    resolution: {integrity: sha512-DjsJ/eQhovkjf1vYFFyh5GB8NMx+L5bdYaonvGOlWselg3DQ0fwIF0N/+2hrPsoS4whmmNswh21ym/8dgt1y5Q==}
     engines: {node: '>= 22.12.0'}
     hasBin: true
 
@@ -4366,9 +4366,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@electron/remote@2.1.4(electron@42.5.0(supports-color@7.2.0))':
+  '@electron/remote@2.1.4(electron@45.4.1(supports-color@7.2.0))':
     dependencies:
-      electron: 42.5.0(supports-color@7.2.0)
+      electron: 45.4.1(supports-color@7.2.0)
 
   '@electron/universal@3.0.4(supports-color@7.2.0)':
     dependencies:
@@ -4558,16 +4558,16 @@ snapshots:
     dependencies:
       '@ghostery/adblocker-extended-selectors': 2.20.3
 
-  '@ghostery/adblocker-electron-preload@2.20.3(electron@42.5.0(supports-color@7.2.0))':
+  '@ghostery/adblocker-electron-preload@2.20.3(electron@45.4.1(supports-color@7.2.0))':
     dependencies:
       '@ghostery/adblocker-content': 2.20.3
-      electron: 42.5.0(supports-color@7.2.0)
+      electron: 45.4.1(supports-color@7.2.0)
 
-  '@ghostery/adblocker-electron@2.20.3(electron@42.5.0(supports-color@7.2.0))':
+  '@ghostery/adblocker-electron@2.20.3(electron@45.4.1(supports-color@7.2.0))':
     dependencies:
       '@ghostery/adblocker': 2.20.3
-      '@ghostery/adblocker-electron-preload': 2.20.3(electron@42.5.0(supports-color@7.2.0))
-      electron: 42.5.0(supports-color@7.2.0)
+      '@ghostery/adblocker-electron-preload': 2.20.3(electron@45.4.1(supports-color@7.2.0))
+      electron: 45.4.1(supports-color@7.2.0)
       tldts-experimental: 7.5.3
 
   '@ghostery/adblocker-extended-selectors@2.20.3': {}
@@ -5072,7 +5072,7 @@ snapshots:
 
   '@types/electron-localshortcut@3.1.3(supports-color@7.2.0)':
     dependencies:
-      electron: 42.5.0(supports-color@7.2.0)
+      electron: 45.4.1(supports-color@7.2.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -5686,9 +5686,9 @@ snapshots:
 
   csstype@3.2.3: {}
 
-  custom-electron-prompt@1.6.1(electron@42.5.0(supports-color@7.2.0)):
+  custom-electron-prompt@1.6.1(electron@45.4.1(supports-color@7.2.0)):
     optionalDependencies:
-      electron: 42.5.0(supports-color@7.2.0)
+      electron: 45.4.1(supports-color@7.2.0)
 
   data-uri-to-buffer@4.0.1: {}
 
@@ -5954,7 +5954,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@42.5.0(supports-color@7.2.0):
+  electron@45.4.1(supports-color@7.2.0):
     dependencies:
       '@electron-internal/extract-zip': 1.0.3
       '@electron/get': 5.0.0(supports-color@7.2.0)
