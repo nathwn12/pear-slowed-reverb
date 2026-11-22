@@ -112,8 +112,8 @@ importers:
         specifier: 8.0.2
         version: 8.0.2
       electron-debug:
-        specifier: 4.1.0
-        version: 4.1.0(supports-color@7.2.0)
+        specifier: 5.0.0
+        version: 5.0.0
       electron-is:
         specifier: 3.0.0
         version: 3.0.0(patch_hash=08664a5453f092fe45542f9005ffc07527b1f207447318374cba0f4d30f466a0)
@@ -2203,9 +2203,9 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
 
-  electron-debug@4.1.0:
-    resolution: {integrity: sha512-rdbvmotqbaNcSuinPe1tzB5zK+JKal+4LSDbguBcqTLARNqWrGoRS/TkR1gGH4+63boYH3HUaf9r9ECAxgIe9g==}
-    engines: {node: '>=18'}
+  electron-debug@5.0.0:
+    resolution: {integrity: sha512-OJURKDBbEMcejThLVqFuTM3rvv0J4JU3OK7wp0JAV59fusU0kgZTuRqZPHSVS362onE7xuEC4VKBnziAswIXwg==}
+    engines: {node: '>=22'}
 
   electron-devtools-installer@4.0.0:
     resolution: {integrity: sha512-9Tntu/jtfSn0n6N/ZI6IdvRqXpDyLQiDuuIbsBI+dL+1Ef7C8J2JwByw58P3TJiNeuqyV3ZkphpNWuZK5iSY2w==}
@@ -5857,12 +5857,9 @@ snapshots:
       - electron-builder-squirrel-windows
       - supports-color
 
-  electron-debug@4.1.0(supports-color@7.2.0):
+  electron-debug@5.0.0:
     dependencies:
       electron-is-dev: 3.0.1
-      electron-localshortcut: 3.2.1(supports-color@7.2.0)
-    transitivePeerDependencies:
-      - supports-color
 
   electron-devtools-installer@4.0.0:
     dependencies:
