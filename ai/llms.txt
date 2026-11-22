@@ -1,0 +1,13 @@
+---
+project: pear-slowed-reverb
+one_line: Play YouTube Music on Windows with a maintained Pear Desktop fork that ships its own builds.
+stack: [TypeScript]
+status: draft
+since: 2026-09
+capabilities: []
+limits: []
+updated: 2026-11-22
+draft: true
+---
+
+This is a maintained fork of pear-devs/pear-desktop. Its release pipeline and updater point at this repository, so Windows builds and their updates come from here rather than upstream. The fork keeps up with upstream's plugin set and carries dependency fixes on top. Upstream's MIT licence and copyright stay untouched.
