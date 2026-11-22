@@ -70,7 +70,7 @@
     "@skyra/jaro-winkler": "1.1.1",
     "@xhayper/discord-rpc": "1.5.1",
     "async-mutex": "0.5.0",
-    "bgutils-js": "3.2.0",
+    "bgutils-js": "4.0.3",
     "butterchurn": "3.0.0-beta.5",
     "butterchurn-presets": "3.0.0-beta.4",
     "chinese-conv": "4.1.0",
