@@ -1,13 +1,21 @@
-# Development setup (how-to)
+# Development setup (troubleshooting)
 
-This how-to owns the dependency-install facts referenced by the repository policy file. Project policy and the command list stay in AGENTS.md.
+This page is standalone: it covers one dependency-install failure mode and is not a statement of the repository's current state.
 
-## Pinned patch state
+## Where the pin lives
 
-`patches/kuromoji@0.1.2.patch` is wired through `pnpm-workspace.yaml` `patchedDependencies`. It no longer applies to the current registry tarball, so every `pnpm install` dies in pre-run install with `ERR_PNPM_PATCH_FAILED`. Regenerate it with `pnpm patch` + `patch-commit` before using pnpm for build, lint, typecheck or test.
+The patch set is declared in [pnpm-workspace.yaml](../pnpm-workspace.yaml) under `patchedDependencies`. The patch files are committed under [patches/](../patches/). Read those tracked sources for exact package names, patch filenames and versions; this page does not repeat them.
 
-Until then, run the already-installed bins directly, for example `./node_modules/.bin/tsc -p tsconfig.json --noEmit`. On Windows use the `.cmd` shims; the extensionless `node_modules/.bin/*` files are bash shims.
+## If an install reports ERR_PNPM_PATCH_FAILED
 
-## Scope
+Treat this as a conditional troubleshooting case, not a blanket claim that installs always fail:
 
-The full command list, plugin layout, release flow and hygiene rules are policy in the repository policy file; this page is the how-to for the broken dependency-install state only.
+1. Compare the failing entry in [pnpm-workspace.yaml](../pnpm-workspace.yaml) with its patch file under [patches/](../patches/). An upstream version change can make a stored patch stop applying.
+2. Regenerate the patch with `pnpm patch` + `patch-commit`, and update the declaration in `pnpm-workspace.yaml` in the same change.
+3. Re-run the install only after the declaration and the patch agree.
+
+If that error does not appear, the normal install path applies and no regeneration is needed.
+
+## Working around a stuck patch
+
+While a patch is being regenerated, run the already-installed bins directly, for example `./node_modules/.bin/tsc -p tsconfig.json --noEmit`. On Windows use the `.cmd` shims; the extensionless `node_modules/.bin/*` files are bash shims.
