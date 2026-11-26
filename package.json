@@ -153,7 +153,7 @@
     "typescript": "7.0.2",
     "utf-8-validate": "6.1.0",
     "vite": "8.3.8",
-    "vite-plugin-inspect": "11.4.1",
+    "vite-plugin-inspect": "12.1.0",
     "vite-plugin-resolve": "2.5.2",
     "vite-plugin-solid": "2.11.17",
     "ws": "8.23.0"
