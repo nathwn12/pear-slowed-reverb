@@ -208,8 +208,8 @@ importers:
         specifier: 1.9.2
         version: 1.9.2(solid-js@1.9.19)
       solid-floating-ui:
-        specifier: 0.3.1
-        version: 0.3.1(@floating-ui/dom@1.8.0)(solid-js@1.9.19)
+        specifier: 2.0.0
+        version: 2.0.0(@floating-ui/dom@1.8.0)(@solidjs/web@2.0.3(solid-js@1.9.19))(solid-js@1.9.19)
       solid-js:
         specifier: 1.9.19
         version: 1.9.19
@@ -1374,6 +1374,12 @@ packages:
     resolution: {integrity: sha512-hZ/M/qr25QOCcwDPOHtGjxTD8w2mNyVAYvcfgwzBHq2RwNqHNdDNsMZYap20+ruRwW4A3Cdkczyoz0TSxLCAPQ==}
     peerDependencies:
       solid-js: ^1.6.12
+
+  '@solidjs/web@2.0.3':
+    resolution: {integrity: sha512-XYl9JGOtQ8yJSZRnd6uC+5gYXsYvnIRNxhn89m+F1v6D4d4ZFdTJY2Lq/8XJ3YcjckkCrK/mNfd3kIiqqgnG7w==}
+    engines: {node: '>=22.12.0'}
+    peerDependencies:
+      solid-js: ^2.0.3
 
   '@stylistic/eslint-plugin@5.10.0':
     resolution: {integrity: sha512-nPK52ZHvot8Ju/0A4ucSX1dcPV2/1clx0kLcH5wDmrE4naKso7TUC/voUyU1O9OTKTrR6MYip6LP0ogEMQ9jPQ==}
@@ -3553,9 +3559,19 @@ packages:
     peerDependencies:
       seroval: ^1.0
 
+  seroval-plugins@1.8.0:
+    resolution: {integrity: sha512-96vBb12rDvPPwdKUgWw1op3fGq8AVBFOr0IllbnM72yR5J9WWXF18cQ4g1XfDO7HCyh2dt70P3XdtyRayP8FWg==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      seroval: ^1.8.0
+
   seroval@1.6.12:
     resolution: {integrity: sha512-CqbIVfk/7GL3ITwZI55lcPbpQbjHZ2DD5cUj4iH7E9YsCfHNJV1mx7yNp86Z84w5IpmkZZS/2s5vPOWmVWSdQg==}
     engines: {node: '>=10'}
+
+  seroval@1.8.2:
+    resolution: {integrity: sha512-zmMxi/9MdLK1MKazLmIP6Rk39RuK0Xydd+QHeOYntS37olJeTjB3+nwVj4ce/ZWiZJeRhcO5htfxt0mUzQBscQ==}
+    engines: {node: '>=20'}
 
   serve-handler@6.1.7:
     resolution: {integrity: sha512-CinAq1xWb0vR3twAv9evEU8cNWkXCb9kd5ePAHUKJBkOsUpR1wt/CvGdeca7vqumL1U5cSaeVQ6zZMxiJ3yWsg==}
@@ -3604,12 +3620,13 @@ packages:
     peerDependencies:
       solid-js: ^1.9.14
 
-  solid-floating-ui@0.3.1:
-    resolution: {integrity: sha512-o/QmGsWPS2Z3KidAxP0nDvN7alI7Kqy0kU+wd85Fz+au5SYcnYm7I6Fk3M60Za35azsPX0U+5fEtqfOuk6Ao0Q==}
-    engines: {node: '>=10'}
+  solid-floating-ui@2.0.0:
+    resolution: {integrity: sha512-KnXCnWgY/pBah84Xf26Dr8VYdKc2zMEBMUvNigQ7Wa/A0xvtoys2+Qt7P68mNC/0TIUqzEWyI2nikNf7vzVjzQ==}
+    engines: {node: '>=18'}
     peerDependencies:
       '@floating-ui/dom': ^1.5
-      solid-js: ^1.8
+      '@solidjs/web': ^2.0.0
+      solid-js: ^2.0.0
 
   solid-js@1.9.19:
     resolution: {integrity: sha512-NIrV/6o1FtmrA9iuAAYvnQJZaHrGcaH3LKSVj4kCiZfwqjCtJNDgIgR9XcqYl6KR/Lb3oRx1HrlyswPWR8SRvw==}
@@ -3694,6 +3711,9 @@ packages:
   supports-color@7.2.0:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
+
+  tabbable@6.5.2:
+    resolution: {integrity: sha512-XgdnB1nGU6KU4VgMnZPaZCx7M1hBrLyEiZYau2G2gq9UT0d7d4FUBlNX7vvPlm/B1vk1PjrzJBx9Lbv4fsqS9g==}
 
   tagged-tag@1.0.0:
     resolution: {integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==}
@@ -4972,6 +4992,13 @@ snapshots:
 
   '@solid-primitives/utils@6.3.2(solid-js@1.9.19)':
     dependencies:
+      solid-js: 1.9.19
+
+  '@solidjs/web@2.0.3(solid-js@1.9.19)':
+    dependencies:
+      csstype: 3.2.3
+      seroval: 1.8.2
+      seroval-plugins: 1.8.0(seroval@1.8.2)
       solid-js: 1.9.19
 
   '@stylistic/eslint-plugin@5.10.0(eslint@9.39.4(jiti@2.7.0)(supports-color@7.2.0))':
@@ -7207,7 +7234,13 @@ snapshots:
     dependencies:
       seroval: 1.6.12
 
+  seroval-plugins@1.8.0(seroval@1.8.2):
+    dependencies:
+      seroval: 1.8.2
+
   seroval@1.6.12: {}
+
+  seroval@1.8.2: {}
 
   serve-handler@6.1.7:
     dependencies:
@@ -7269,10 +7302,13 @@ snapshots:
       component-register: 0.8.7
       solid-js: 1.9.19
 
-  solid-floating-ui@0.3.1(@floating-ui/dom@1.8.0)(solid-js@1.9.19):
+  solid-floating-ui@2.0.0(@floating-ui/dom@1.8.0)(@solidjs/web@2.0.3(solid-js@1.9.19))(solid-js@1.9.19):
     dependencies:
       '@floating-ui/dom': 1.8.0
+      '@floating-ui/utils': 0.2.12
+      '@solidjs/web': 2.0.3(solid-js@1.9.19)
       solid-js: 1.9.19
+      tabbable: 6.5.2
 
   solid-js@1.9.19:
     dependencies:
@@ -7364,6 +7400,8 @@ snapshots:
   supports-color@7.2.0:
     dependencies:
       has-flag: 4.0.0
+
+  tabbable@6.5.2: {}
 
   tagged-tag@1.0.0: {}
 
