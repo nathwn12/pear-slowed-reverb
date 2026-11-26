@@ -8,6 +8,10 @@ updates:
       day: "monday"
       time: "03:30"
       timezone: "Asia/Manila"
+    # bgutils-js 4.x removed the root export the PoToken path uses; needs a rewrite, not a bump.
+    ignore:
+      - dependency-name: "bgutils-js"
+        versions: [">=4.0.0"]
     open-pull-requests-limit: 5
     groups:
       minor-and-patch:
