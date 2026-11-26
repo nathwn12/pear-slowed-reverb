@@ -1,6 +1,6 @@
 # Development setup (how-to)
 
-This how-to owns the dependency-install facts referenced by [AGENTS.md](../AGENTS.md). Project policy and the command list stay in AGENTS.md.
+This how-to owns the dependency-install facts referenced by the repository policy file. Project policy and the command list stay in AGENTS.md.
 
 ## Pinned patch state
 
@@ -10,4 +10,4 @@ Until then, run the already-installed bins directly, for example `./node_modules
 
 ## Scope
 
-The full command list, plugin layout, release flow and hygiene rules are policy in [AGENTS.md](../AGENTS.md); this page is the how-to for the broken dependency-install state only.
+The full command list, plugin layout, release flow and hygiene rules are policy in the repository policy file; this page is the how-to for the broken dependency-install state only.
