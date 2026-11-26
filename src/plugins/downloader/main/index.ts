@@ -46,13 +46,11 @@ import type { GetPlayerResponse } from '@/types/get-player-response';
 
 type CustomSongInfo = SongInfo & { trackId?: string };
 
-const ffmpeg = lazyVar.lazy(async () =>
-  (await import('@ffmpeg.wasm/main')).createFFmpeg({
-    log: false,
-    logger() {}, // Console.log,
-    progress() {}, // Console.log,
-  }),
-);
+const ffmpeg = lazyVar.lazy(async () => {
+  const { FFmpeg } = await import('@ffmpeg.wasm/main');
+  // FFmpeg.create defaults to the already-pinned @ffmpeg.wasm/core-mt package.
+  return FFmpeg.create({ log: false, logger() {} });
+});
 const ffmpegMutex = new Mutex();
 
 Platform.shim.eval = (
@@ -520,13 +518,9 @@ async function iterableStreamToProcessedUint8Array(
   return await ffmpegMutex.runExclusive(async () => {
     try {
       const ffmpegInstance = await ffmpeg.get();
-      if (!ffmpegInstance.isLoaded()) {
-        await ffmpegInstance.load();
-      }
 
       sendFeedback(t('plugins.downloader.backend.feedback.preparing-file'));
-      ffmpegInstance.FS(
-        'writeFile',
+      ffmpegInstance.fs.writeFile(
         safeVideoName,
         Buffer.concat(
           await downloadChunks(
@@ -540,16 +534,6 @@ async function iterableStreamToProcessedUint8Array(
 
       sendFeedback(t('plugins.downloader.backend.feedback.converting'));
 
-      ffmpegInstance.setProgress(({ ratio }: { ratio: number }) => {
-        sendFeedback(
-          t('plugins.downloader.backend.feedback.conversion-progress', {
-            percent: Math.floor(ratio * 100),
-          }),
-          ratio,
-        );
-        increasePlaylistProgress(0.15 + ratio * 0.85);
-      });
-
       const safeVideoNameWithExtension = `${safeVideoName}.${extension}`;
       try {
         await ffmpegInstance.run(
@@ -559,16 +543,18 @@ async function iterableStreamToProcessedUint8Array(
           ...getFFmpegMetadataArgs(metadata),
           safeVideoNameWithExtension,
         );
+        // FFmpeg 0.13 has no progress callback; conversion is the last stage.
+        increasePlaylistProgress(1);
       } finally {
-        ffmpegInstance.FS('unlink', safeVideoName);
+        ffmpegInstance.fs.unlink(safeVideoName);
       }
 
       sendFeedback(t('plugins.downloader.backend.feedback.saving'));
 
       try {
-        return ffmpegInstance.FS('readFile', safeVideoNameWithExtension);
+        return ffmpegInstance.fs.readFile(safeVideoNameWithExtension);
       } finally {
-        ffmpegInstance.FS('unlink', safeVideoNameWithExtension);
+        ffmpegInstance.fs.unlink(safeVideoNameWithExtension);
       }
     } catch (error: unknown) {
       sendError(error as Error, safeVideoName);
