@@ -3,6 +3,7 @@ name: Build Pear Desktop
 on:
   push:
     branches: [ main, master ]
+  pull_request:
   workflow_dispatch:
     inputs:
       dry_run:
@@ -33,7 +34,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ macos-26, ubuntu-latest, windows-latest ]
+        os: [ macos-26-intel, ubuntu-latest, windows-latest ]
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
