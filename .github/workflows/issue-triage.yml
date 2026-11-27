@@ -46,7 +46,7 @@ jobs:
 
       - name: Run triage agent
         # anthropics/claude-code-action v1.0.181
-        uses: anthropics/claude-code-action@f431adaf77e0fecf918431e75a2b5b45b85af002
+        uses: anthropics/claude-code-action@acfe7992852970efb4fee683d63d628e3e52df67
         env:
           # Point Claude Code at DeepSeek's Anthropic-compatible endpoint.
           ANTHROPIC_BASE_URL: https://api.deepseek.com/anthropic
