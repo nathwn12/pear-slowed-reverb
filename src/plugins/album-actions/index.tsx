@@ -134,7 +134,7 @@ export default createPlugin<
       const listsLength = playlist.querySelectorAll(
         '#button-shape-dislike > button',
       ).length;
-      if (continuations.children.length == 0 && listsLength > 0) {
+      if (continuations.children.length === 0 && listsLength > 0) {
         const counts = {
           dislike: playlist?.querySelectorAll(
             '#button-shape-dislike > button[aria-pressed=true]',
@@ -225,7 +225,7 @@ export default createPlugin<
       }
     },
     applyToList(id: string, loader: HTMLElement) {
-      if (loader.children.length != 0) return;
+      if (loader.children.length !== 0) return;
       this.loadObserver?.disconnect();
       let playlistButtons: NodeListOf<HTMLElement> | undefined;
       const playlist =

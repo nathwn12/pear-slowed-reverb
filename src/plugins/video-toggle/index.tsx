@@ -307,7 +307,7 @@ export default createPlugin({
         );
       };
 
-      if (config.mode !== 'native' && config.mode != 'disabled') {
+      if (config.mode !== 'native' && config.mode !== 'disabled') {
         setTimeout(() => {
           const playerSelector =
             document.querySelector<HTMLVideoElement>('#player');
