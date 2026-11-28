@@ -19,7 +19,7 @@ export default createPlugin<
       waitForElement<HTMLElement>('#like-button-renderer').then(
         (dislikeBtn) => {
           this.observer = new MutationObserver(() => {
-            if (dislikeBtn?.getAttribute('like-status') == 'DISLIKE') {
+            if (dislikeBtn?.getAttribute('like-status') === 'DISLIKE') {
               document
                 .querySelector<HTMLButtonElement>('yt-icon-button.next-button')
                 ?.click();

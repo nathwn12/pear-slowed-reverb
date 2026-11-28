@@ -4,7 +4,9 @@ on:
   issues:
     types: [opened]
   # Manual re-trigger: an org member comments "/triage" on any issue.
-  issue_comment:
+  issue_comment: # zizmor: ignore[dangerous-triggers] -- the only trigger the
+    # /triage feature can use; permissions are empty, the job is gated on GitHub's
+    # own author_association, and no untrusted checkout runs in it.
     types: [created]
 
 permissions: {}
