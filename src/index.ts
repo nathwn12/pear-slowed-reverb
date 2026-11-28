@@ -746,9 +746,9 @@ app.whenReady().then(async () => {
         );
       }
 
-      const splited = decodeURIComponent(command).split(' ');
+      const parts = decodeURIComponent(command).split(' ');
 
-      handleProtocol(splited.shift()!, ...splited);
+      handleProtocol(parts.shift()!, ...parts);
       return;
     }
 

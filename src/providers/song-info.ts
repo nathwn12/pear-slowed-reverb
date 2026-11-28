@@ -137,7 +137,7 @@ const handleData = async (
           !config.get('options.usePodcastParticipantAsArtist') &&
           (data.responseContext.serviceTrackingParams
             ?.at(0)
-            ?.params?.find((it) => it.key === 'ipcc')?.value ?? '1') != '0'
+            ?.params?.find((it) => it.key === 'ipcc')?.value ?? '1') !== '0'
         ) {
           songInfo.artist = cleanupName(
             data.microformat.microformatDataRenderer.pageOwnerDetails.name,
