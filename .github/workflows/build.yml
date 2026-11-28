@@ -19,6 +19,10 @@ on:
 
 permissions: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name != 'push' }}
+
 env:
   NODE_VERSION: "24.x"
 
@@ -30,14 +34,17 @@ jobs:
     # the upstream-gated `pnpm release:*` steps below stay push-only.
     if: github.event_name != 'workflow_dispatch' && github.event.pull_request.draft == false
     name: Build Pear Desktop
+    timeout-minutes: 60
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         os: [ macos-26-intel, ubuntu-latest, windows-latest ]
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
 
       - name: Install pnpm
         uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115
@@ -110,6 +117,7 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     name: Release Pear Desktop
+    timeout-minutes: 60
     # Upstream release only, and only from a push to master.
     if: github.event_name == 'push' && github.repository == 'pear-devs/pear-desktop' && github.ref == 'refs/heads/master'
     needs: build
@@ -117,6 +125,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Install pnpm
         uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115
@@ -125,14 +134,14 @@ jobs:
           run_install: false
 
       - name: Setup NodeJS
-        if: startsWith(matrix.os, 'macOS') != true
+        if: startsWith(runner.os, 'macOS') != true
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'pnpm'
 
       - name: Setup NodeJS for macOS
-        if: startsWith(matrix.os, 'macOS')
+        if: startsWith(runner.os, 'macOS')
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -146,7 +155,7 @@ jobs:
 
       - name: Check if version already exists in tags
         run: |
-          echo "VERSION_HASH=$(git rev-parse -q --verify 'refs/tags/${{ env.VERSION_TAG }}')" >> $GITHUB_ENV
+          echo "VERSION_HASH=$(git rev-parse -q --verify 'refs/tags/${VERSION_TAG}')" >> $GITHUB_ENV
           echo "CHANGELOG_ANCHOR=$(echo $VERSION_TAG | sed -e 's/\.//g')" >> $GITHUB_ENV
 
       - name: Fetch draft release
