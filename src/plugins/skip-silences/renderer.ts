@@ -66,7 +66,7 @@ const audioCanPlayListener = (e: CustomEvent<Compressor>) => {
         }
 
         if (
-          history == 0 && // Silent
+          history === 0 && // Silent
           !(
             video &&
             (video.paused ||
