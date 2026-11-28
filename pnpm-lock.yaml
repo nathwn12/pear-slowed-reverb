@@ -2816,8 +2816,8 @@ packages:
   inline-style-parser@0.2.4:
     resolution: {integrity: sha512-0aO8FkhNZlj/ZIbNi7Lxxr12obT7cL1moPfE4tg1LkX7LlLfC6DeX4l2ZEud1ukP9jNQyNnfzQVqwbwmAATY4Q==}
 
-  ip-address@10.2.0:
-    resolution: {integrity: sha512-/+S6j4E9AHvW9SWMSEY9Xfy66O5PWvVEJ08O0y5JGyEKQpojb0K0GKpz/v5HJ/G0vi3D2sjGK78119oXZeE0qA==}
+  ip-address@10.7.7:
+    resolution: {integrity: sha512-He15rAs4jip5AEAz7XM9L+S6Y8LBMIDj6YewbYuJfmDnOCKWb+3TLOGnHFBTAIW7wpm5ohtZ+Xyo5PEaG+O2vQ==}
     engines: {node: '>= 12'}
 
   is-docker@3.0.0:
@@ -6725,7 +6725,7 @@ snapshots:
 
   inline-style-parser@0.2.4: {}
 
-  ip-address@10.2.0: {}
+  ip-address@10.7.7: {}
 
   is-docker@3.0.0: {}
 
@@ -7584,7 +7584,7 @@ snapshots:
 
   socks@2.8.11:
     dependencies:
-      ip-address: 10.2.0
+      ip-address: 10.7.7
       smart-buffer: 4.2.0
 
   solid-element@1.9.2(solid-js@1.9.19):
